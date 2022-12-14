@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MemberController {
 
-    @GetMapping("hello")
-    public String helloWorld(){
-        return "Hello World!";
+    @GetMapping("member")
+    public Member helloMember(){
+        return new Member("bob", "marley", 44, "MALE", "bob@gmail.com", "pass123", "OUTDOORS");
     }
 
     @GetMapping("hello/{name}")
