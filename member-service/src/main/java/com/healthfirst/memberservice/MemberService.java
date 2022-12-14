@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -7,7 +8,14 @@ import java.util.List;
 @Service
 public class MemberService {
 
-  private static List <Member> memberList = new ArrayList<>();
+
+    private MemberRepo memberRepo;
+    @Autowired
+    public MemberService(MemberRepo memberRepo) {
+        this.memberRepo = memberRepo;
+    }
+
+    private static List <Member> memberList = new ArrayList<>();
 
    static{
        memberList.add(new Member(1L,"bob", "marley", 44, "MALE", "bob@gmail.com",
@@ -19,7 +27,7 @@ public class MemberService {
        }
 
     public List<Member> getAllMembers(){
-        return memberList;
+        return memberRepo.findAll();
     }
 
     public Member getMemberById(Long id) {
@@ -27,7 +35,7 @@ public class MemberService {
     }
 
     public void addMember(Member member) {
-       memberList.add(member);
+       memberRepo.save(member);
     }
 
     public void deleteMember(Long id) {
