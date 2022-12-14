@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
+    private Long id;
     private String firstName;
     private String lastName;
     private Integer age;
