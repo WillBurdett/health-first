@@ -33,4 +33,15 @@ public class MemberService {
     public void deleteMember(Long id) {
        memberList.removeIf(member -> member.getId() == id);
     }
+
+    public void updateMember(Long id, Member member) {
+       Member curr = memberList.stream().filter(m -> m.getId() == id).findFirst().get();
+       curr.setFirstName(member.getFirstName());
+       curr.setLastName(member.getLastName());
+       curr.setAge(member.getAge());
+       curr.setEmail(member.getEmail());
+       curr.setGender(member.getGender());
+       curr.setPassword(member.getPassword());
+       curr.setInterest(member.getInterest());
+    }
 }
