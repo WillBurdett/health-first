@@ -29,4 +29,8 @@ public class MemberService {
     public void addMember(Member member) {
        memberList.add(member);
     }
+
+    public void deleteMember(Long id) {
+       memberList.removeIf(member -> member.getId() == id);
+    }
 }
