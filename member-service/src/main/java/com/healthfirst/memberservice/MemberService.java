@@ -3,6 +3,7 @@ package com.healthfirst.memberservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -18,11 +19,18 @@ public class MemberService {
     }
 
     public Member getMemberById(Long id) {
-       return memberRepo.findAll().stream().filter(member -> member.getId() == id).findFirst().get();
+        Optional<Member> member=  memberRepo.findAll().stream()
+                .filter(m -> m.getId() == id)
+                .findFirst();
+        if(member.isPresent() ){
+            return member.get();
+        }
+        throw new MemberNotFoundException("id:" + id);
     }
 
-    public void addMember(Member member) {
+    public Member addMember(Member member) {
        memberRepo.save(member);
+        return member;
     }
 
     public void deleteMember(Long id) {
