@@ -4,6 +4,7 @@ import com.healthfirst.memberservice.Member;
 import com.healthfirst.memberservice.MemberRepo;
 import com.healthfirst.memberservice.MemberService;
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
