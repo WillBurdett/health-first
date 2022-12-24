@@ -15,10 +15,10 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
     //ALL EXCEPTIONS
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
-        ExceptionDetails memberErros = new ExceptionDetails(LocalDateTime.now(),
+        ExceptionDetails memberErrors = new ExceptionDetails(LocalDateTime.now(),
                 ex.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity<ExceptionDetails>(memberErros, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ExceptionDetails>(memberErrors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //MEMBER NOT FOUND EXCEPTIONS
