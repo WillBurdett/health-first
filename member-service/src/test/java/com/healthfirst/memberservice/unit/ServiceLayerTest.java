@@ -3,6 +3,8 @@ package com.healthfirst.memberservice.unit;
 import com.healthfirst.memberservice.Member;
 import com.healthfirst.memberservice.MemberRepo;
 import com.healthfirst.memberservice.MemberService;
+import com.healthfirst.memberservice.enums.Gender;
+import com.healthfirst.memberservice.enums.Interest;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -13,10 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -32,7 +32,7 @@ public class ServiceLayerTest {
     @Test
     public void getAllMembers_ReturnsAllMembers() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, "MALE", "bob@gmail.com", "pass123", "OUTDOORS");
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
         List<Member> expected = Arrays.asList(bob);
         when(repo.findAll()).thenReturn(Arrays.asList(bob));
 
@@ -47,7 +47,7 @@ public class ServiceLayerTest {
     @Test
     public void getMemberById_ReturnsMemberWhenExists() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, "MALE", "bob@gmail.com", "pass123", "OUTDOORS");
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
         when(repo.findAll()).thenReturn(List.of(bob));
 
         // when
@@ -62,7 +62,7 @@ public class ServiceLayerTest {
     @Test
     public void addMember_AddsWhenMemberValid() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, "MALE", "bob@gmail.com", "pass123", "OUTDOORS");
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
 
         // when
         service.addMember(bob);
@@ -86,7 +86,7 @@ public class ServiceLayerTest {
     @Test
     public void updateMember_UpdatesWhenMemberValid() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, "MALE", "bob@gmail.com", "pass123", "OUTDOORS");
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
         when(repo.findAll()).thenReturn(List.of(bob));
 
         // when

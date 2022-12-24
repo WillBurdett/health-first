@@ -1,5 +1,7 @@
 package com.healthfirst.memberservice;
 
+import com.healthfirst.memberservice.enums.Gender;
+import com.healthfirst.memberservice.enums.Interest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +27,11 @@ public class Member {
     @Column
     private Integer age;
     @Column
-    private String gender;
+    private Gender gender;
     @Column
     private String email;
     @Column
     private String password;
     @Column
-    private String interest;
+    private Interest interest;
 }
