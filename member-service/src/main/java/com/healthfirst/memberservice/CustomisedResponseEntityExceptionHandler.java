@@ -23,11 +23,11 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
 
     //MEMBER NOT FOUND EXCEPTIONS
     @ExceptionHandler(MemberNotFoundException.class)
-    public final ResponseEntity<ExceptionDetails> handleMemeberNotFoundExceptions(Exception ex, WebRequest request) throws Exception {
-        ExceptionDetails memberErros = new ExceptionDetails(LocalDateTime.now(),
+    public final ResponseEntity<ExceptionDetails> handleMemberNotFoundExceptions(Exception ex, WebRequest request) throws Exception {
+        ExceptionDetails memberErrors = new ExceptionDetails(LocalDateTime.now(),
                 ex.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity<ExceptionDetails>(memberErros, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<ExceptionDetails>(memberErrors, HttpStatus.NOT_FOUND);
 
     }
 }

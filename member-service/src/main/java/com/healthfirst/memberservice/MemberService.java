@@ -25,7 +25,7 @@ public class MemberService {
         if(member.isPresent() ){
             return member.get();
         }
-        throw new MemberNotFoundException("id:" + id);
+        throw new MemberNotFoundException("Member not found with id " + id);
     }
 
     public Member addMember(Member member) {

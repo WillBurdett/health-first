@@ -1,6 +1,7 @@
 package com.healthfirst.memberservice.unit;
 
 import com.healthfirst.memberservice.Member;
+import com.healthfirst.memberservice.MemberNotFoundException;
 import com.healthfirst.memberservice.MemberRepo;
 import com.healthfirst.memberservice.MemberService;
 import com.healthfirst.memberservice.enums.Gender;
@@ -15,8 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -57,6 +60,20 @@ public class ServiceLayerTest {
         Member expected = bob;
         verify(repo, times(1)).findAll();
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void getMemberById_ThrowsExceptionWhenMemberDoesNotExist() {
+        // given
+        Long idThatDoesNotExist = 1L;
+        when(repo.findById(idThatDoesNotExist)).thenReturn(Optional.empty());
+
+        // when
+        assertThatThrownBy(() -> {
+           service.getMemberById(idThatDoesNotExist);
+            // then
+        }).isInstanceOf(MemberNotFoundException.class)
+                .hasMessage("Member not found with id " + idThatDoesNotExist);
     }
 
     @Test
