@@ -46,5 +46,6 @@ public class MemberService {
        curr.setGender(member.getGender());
        curr.setPassword(member.getPassword());
        curr.setInterest(member.getInterest());
+       memberRepo.save(curr);
     }
 }
