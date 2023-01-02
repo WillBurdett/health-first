@@ -1,6 +1,9 @@
-package com.healthfirst.memberservice;
+package com.healthfirst.memberservice.controllers;
 
+import com.healthfirst.memberservice.models.Member;
+import com.healthfirst.memberservice.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,8 +14,8 @@ import java.util.List;
 @RestController
 public class MemberController {
 
-    private MemberService memberService;
-   @Autowired
+    private final MemberService memberService;
+    @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
@@ -25,9 +28,13 @@ public class MemberController {
     public Member getMemberById(@PathVariable Long id)  {
       return memberService.getMemberById(id);
     }
-    @PostMapping("members")
+    @PostMapping(
+            value = "members",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     // members/4 => /members/{id}, members.getID => 201 error code
-    public ResponseEntity<Member> addMember(@RequestBody Member member){
+    public @ResponseBody ResponseEntity<Member> addMember(@RequestBody Member member){
         Member savedMember = memberService.addMember(member);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

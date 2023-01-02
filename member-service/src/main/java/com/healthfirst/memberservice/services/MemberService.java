@@ -1,5 +1,8 @@
-package com.healthfirst.memberservice;
+package com.healthfirst.memberservice.services;
 
+import com.healthfirst.memberservice.models.Member;
+import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
+import com.healthfirst.memberservice.repositories.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

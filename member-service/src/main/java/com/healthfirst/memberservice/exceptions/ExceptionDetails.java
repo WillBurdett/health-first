@@ -1,4 +1,4 @@
-package com.healthfirst.memberservice;
+package com.healthfirst.memberservice.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

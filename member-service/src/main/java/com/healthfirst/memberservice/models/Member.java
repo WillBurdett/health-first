@@ -1,12 +1,8 @@
-package com.healthfirst.memberservice;
+package com.healthfirst.memberservice.models;
 
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -34,4 +30,5 @@ public class Member {
     private String password;
     @Column
     private Interest interest;
+
 }

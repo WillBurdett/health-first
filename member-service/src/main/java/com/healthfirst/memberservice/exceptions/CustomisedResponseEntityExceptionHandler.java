@@ -1,10 +1,15 @@
-package com.healthfirst.memberservice;
+package com.healthfirst.memberservice.exceptions;
 
 
+import com.healthfirst.memberservice.exceptions.ExceptionDetails;
+import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -28,6 +33,5 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
                 ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<ExceptionDetails>(memberErrors, HttpStatus.NOT_FOUND);
-
     }
 }

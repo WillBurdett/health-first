@@ -1,9 +1,9 @@
 package com.healthfirst.memberservice.unit;
 
-import com.healthfirst.memberservice.Member;
-import com.healthfirst.memberservice.MemberNotFoundException;
-import com.healthfirst.memberservice.MemberRepo;
-import com.healthfirst.memberservice.MemberService;
+import com.healthfirst.memberservice.models.Member;
+import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
+import com.healthfirst.memberservice.repositories.MemberRepo;
+import com.healthfirst.memberservice.services.MemberService;
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MemberService.class)
-public class ServiceLayerTest {
+public class MemberServiceTest {
 
     @Autowired
     MemberService service;
