@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MemberController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     // members/4 => /members/{id}, members.getID => 201 error code
-    public @ResponseBody ResponseEntity<Member> addMember(@RequestBody Member member){
+    public ResponseEntity<Member> addMember(@Valid @RequestBody Member member){
         Member savedMember = memberService.addMember(member);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -32,8 +32,8 @@ public class MemberService {
     }
 
     public Member addMember(Member member) {
-       memberRepo.save(member);
-        return member;
+        Member savedMember = memberRepo.save(member);
+        return savedMember;
     }
 
     public void deleteMember(Long id) {
