@@ -41,15 +41,18 @@ public class MemberService {
     }
 
     public Member updateMember(Long id, Member member) {
-       Member curr = memberRepo.findAll().stream().filter(m -> m.getId() == id).findFirst().get();
-       curr.setFirstName(member.getFirstName());
-       curr.setLastName(member.getLastName());
-       curr.setAge(member.getAge());
-       curr.setEmail(member.getEmail());
-       curr.setGender(member.getGender());
-       curr.setPassword(member.getPassword());
-       curr.setInterest(member.getInterest());
-       memberRepo.save(curr);
-       return curr;
+       Optional<Member> curr = memberRepo.findAll().stream().filter(m -> m.getId() == id).findFirst();
+       if (curr.isPresent()){
+           curr.get().setFirstName(member.getFirstName());
+           curr.get().setLastName(member.getLastName());
+           curr.get().setAge(member.getAge());
+           curr.get().setEmail(member.getEmail());
+           curr.get().setGender(member.getGender());
+           curr.get().setPassword(member.getPassword());
+           curr.get().setInterest(member.getInterest());
+           memberRepo.save(curr.get());
+           return curr.get();
+       }
+        throw new MemberNotFoundException("Member not found with id " + id);
     }
 }
