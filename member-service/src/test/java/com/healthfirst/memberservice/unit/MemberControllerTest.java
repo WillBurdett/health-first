@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -81,7 +80,7 @@ public class MemberControllerTest {
 
     @Test
     public void addMember_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
         when(service.addMember(bob)).thenReturn(bob);
         mockMvc.perform(MockMvcRequestBuilders.post("/members")
                 .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
@@ -96,7 +95,7 @@ public class MemberControllerTest {
 
     @Test
     public void updateMember_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
         mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
                 .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
         verify(service, times(1)).updateMember(1L, bob);
