@@ -92,8 +92,6 @@ public class MemberControllerTest {
 
     }
 
-
-
     @Test
     public void addMember_HappyPath() throws Exception {
         Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
