@@ -3,6 +3,7 @@ package com.healthfirst.memberservice.unit;
 import com.healthfirst.memberservice.controllers.MemberController;
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
+import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.services.MemberService;
 
@@ -39,7 +40,8 @@ public class MemberControllerTest {
 
     @Test
     public void getAllMembers_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
+        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com",
+                "pass123", Interest.ATHLETICS);
         when(service.getAllMembers()).thenReturn(Arrays.asList(bob));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/members")
@@ -77,6 +79,20 @@ public class MemberControllerTest {
 
         verify(service, times(1)).getMemberById(1L);
     }
+
+    // not
+    @Test
+    public void getMemberById_givenNotFound_throwException() throws Exception {
+        when(service.getMemberById(1L)).thenThrow (new MemberNotFoundException("Member not found with id "));
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/members/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                         .andDo(print())
+                         .andExpect(status().isNotFound());
+        verify(service, times(1)).getMemberById(1L);
+
+    }
+
+
 
     @Test
     public void addMember_HappyPath() throws Exception {
