@@ -1,0 +1,10 @@
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/exceptions/ExceptionDetails.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/exceptions/CustomisedResponseEntityExceptionHandler.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/repositories/MemberRepo.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/enums/Interest.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/models/Member.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/enums/Gender.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/services/MemberService.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/controllers/MemberController.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/exceptions/MemberNotFoundException.java
+/Users/suraya/IdeaProjects/health-first/member-service/src/main/java/com/healthfirst/memberservice/MemberServiceApplication.java
