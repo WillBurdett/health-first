@@ -112,4 +112,19 @@ public class MemberServiceTest {
         // then
         verify(repo, times(1)).findAll();
     }
+
+    @Test
+    public void updateMember_ThrowsExceptionWhenMemberDoesNotExist() {
+        // given
+        Member bob = new Member(2L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
+        Long idThatDoesNotExist = 1L;
+        when(repo.findAll()).thenReturn(List.of());
+
+        // when
+        assertThatThrownBy(() -> {
+            service.updateMember(idThatDoesNotExist, bob);
+            // then
+        }).isInstanceOf(MemberNotFoundException.class)
+                .hasMessage("Member not found with id " + idThatDoesNotExist);
+    }
 }

@@ -3,6 +3,7 @@ package com.healthfirst.memberservice.unit;
 import com.healthfirst.memberservice.controllers.MemberController;
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
+import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.services.MemberService;
 
@@ -21,6 +22,8 @@ import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -98,6 +101,18 @@ public class MemberControllerTest {
         Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
         mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
                 .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
+        verify(service, times(1)).updateMember(1L, bob);
+    }
+
+    @Test
+    public void updateMember_MemberDoesNotExist() throws Exception {
+        Member bob = new Member(2L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
+        when(service.updateMember(1L, bob)).thenThrow(new MemberNotFoundException("member not found"));
+        mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
+                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MemberNotFoundException))
+                .andExpect(result -> assertEquals("member not found", result.getResolvedException().getMessage()));
         verify(service, times(1)).updateMember(1L, bob);
     }
 
