@@ -40,7 +40,7 @@ public class MemberService {
        memberRepo.deleteById(id);
     }
 
-    public void updateMember(Long id, Member member) {
+    public Member updateMember(Long id, Member member) {
        Member curr = memberRepo.findAll().stream().filter(m -> m.getId() == id).findFirst().get();
        curr.setFirstName(member.getFirstName());
        curr.setLastName(member.getLastName());
@@ -50,5 +50,6 @@ public class MemberService {
        curr.setPassword(member.getPassword());
        curr.setInterest(member.getInterest());
        memberRepo.save(curr);
+       return curr;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -34,7 +35,6 @@ public class MemberController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    // members/4 => /members/{id}, members.getID => 201 error code
     public ResponseEntity<Member> addMember(@Valid @RequestBody Member member){
         Member savedMember = memberService.addMember(member);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,11 +45,13 @@ public class MemberController {
     }
 
     @DeleteMapping("members/{id}")
-    public void deleteMember(@PathVariable Long id){
+    public void deleteMember(@PathVariable Long id, HttpServletResponse response){
         memberService.deleteMember(id);
+        response.setStatus(204);
     }
     @PutMapping("members/{id}")
-    public void updateMember(@PathVariable Long id, @RequestBody Member member){
-        memberService.updateMember(id, member);
+    public void updateMember(@PathVariable Long id, @RequestBody Member member, HttpServletResponse response){
+        Member savedMember = memberService.updateMember(id, member);
+        response.setStatus(200);
     }
 }
