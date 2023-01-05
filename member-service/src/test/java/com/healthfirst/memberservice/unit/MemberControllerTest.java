@@ -95,11 +95,11 @@ public class MemberControllerTest {
     }
 
     @Test
-    public void updateMember() throws Exception {
+    public void updateMember_HappyPath() throws Exception {
         Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
         mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
                 .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
         verify(service, times(1)).updateMember(1L, bob);
-
     }
+
 }

@@ -37,11 +37,11 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<ExceptionDetails>(memberErrors, HttpStatus.NOT_FOUND);
     }
 
+    //VALIDATION CONSTRAINTS ERRORS
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
         ExceptionDetails memberErrors = new ExceptionDetails(LocalDateTime.now(),
                 "Total Errors:" + ex.getErrorCount() + " First Error:" + ex.getFieldError().getDefaultMessage(), request.getDescription(false));
-
 
         return new ResponseEntity(memberErrors, HttpStatus.BAD_REQUEST);
     }
