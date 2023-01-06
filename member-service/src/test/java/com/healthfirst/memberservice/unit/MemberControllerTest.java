@@ -84,7 +84,7 @@ public class MemberControllerTest {
 
 
     @Test
-    public void getMemberById_givenNotFound_throwException() throws Exception {
+    public void getMemberById_MemberDoesNotExist() throws Exception {
         when(service.getMemberById(1L)).thenThrow (new MemberNotFoundException("member id not found"));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/members/1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -129,5 +129,4 @@ public class MemberControllerTest {
                 .andExpect(result -> assertEquals("member not found", result.getResolvedException().getMessage()));
         verify(service, times(1)).updateMember(1L, bob);
     }
-
 }
