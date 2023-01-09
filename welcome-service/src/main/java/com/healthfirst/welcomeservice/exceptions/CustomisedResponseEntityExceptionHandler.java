@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    //ALL EXCEPTIONS
+    // ALL EXCEPTIONS
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
         ExceptionDetails memberErrors = new ExceptionDetails(LocalDateTime.now(),
@@ -23,7 +23,7 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<ExceptionDetails>(memberErrors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    //VALIDATION CONSTRAINTS ERRORS
+    // VALIDATION CONSTRAINTS ERRORS
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
         ExceptionDetails validationErrors = new ExceptionDetails(LocalDateTime.now(),
