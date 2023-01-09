@@ -1,4 +1,4 @@
-package com.healthfirst.welcomeservice;
+package com.healthfirst.welcomeservice.models;
 
 import com.healthfirst.welcomeservice.enums.Interest;
 import lombok.AllArgsConstructor;
