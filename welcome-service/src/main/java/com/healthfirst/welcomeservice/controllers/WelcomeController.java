@@ -6,12 +6,9 @@ import com.healthfirst.welcomeservice.models.Member;
 import com.healthfirst.welcomeservice.services.WelcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,10 +22,10 @@ public class WelcomeController {
     }
     @GetMapping("/welcome/classes")
     public List<ClassInfo> hello(){
-        return service.getRelevantClasses(List.of(Interest.DANCE));
+        return service.getRelevantClasses(Interest.DANCE);
     }
     @PostMapping(
-            value = "/classInfo/{id}",
+            value = "/welcome",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

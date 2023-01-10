@@ -46,17 +46,26 @@ public class WelcomeService {
         );
     }
 
-    public List<ClassInfo> getRelevantClasses(List<Interest> interests){
+    public List<ClassInfo> getRelevantClasses(Interest interest){
         List <ClassInfo> relevantClasses = new ArrayList<>();
-        for (Interest i:
-             interests) {
-            for (ClassInfo c:
-                 allClasses) {
-                if (i.equals(c.getClassType())){
+        // TODO: 10/01/2023 this will be to handle List <Interest>
+//        for (Interest i:
+//             interests) {
+//            for (ClassInfo c:
+//                 allClasses) {
+//                if (i.equals(c.getClassType())){
+//                    relevantClasses.add(c);
+//                }
+//            }
+//        }
+
+        for (ClassInfo c:
+            allClasses) {
+            if (interest.equals(c.getClassType())){
                     relevantClasses.add(c);
                 }
             }
-        }
+
         return relevantClasses;
     }
 
