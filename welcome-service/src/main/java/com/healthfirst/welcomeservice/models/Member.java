@@ -7,7 +7,9 @@ import lombok.*;
 
 
 import javax.validation.constraints.*;
+import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
@@ -26,7 +28,7 @@ public class Member {
     @Size(min = 8)
 
     private String password;
-    private Interest interest;
+    private List<Interest> interest;
 }
 
 

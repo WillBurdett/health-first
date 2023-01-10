@@ -32,12 +32,12 @@ public class WelcomeController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ClassInfo> addClass(@Valid @RequestBody ClassInfo classInfo) {
-        ClassInfo addClass = service.getRelevantClasses(List.of(Interest));
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(addClass.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
+    public List<ClassInfo> addClass(@Valid @RequestBody Member member) {
+        List<ClassInfo> addMemberClass = service.handleNewMember(member);
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(addClass.getId())
+//                .toUri();
+        return  addMemberClass;
     }
 }

@@ -2,6 +2,7 @@ package com.healthfirst.welcomeservice.services;
 
 import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.models.ClassInfo;
+import com.healthfirst.welcomeservice.models.Member;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -57,5 +58,9 @@ public class WelcomeService {
             }
         }
         return relevantClasses;
+    }
+
+    public List<ClassInfo> handleNewMember(Member member){
+        return getRelevantClasses(member.getInterest());
     }
 }
