@@ -38,7 +38,7 @@ public class WelcomeService {
                 new ClassInfo(
                         3L, "Aqua-fit",
                         "Mrs.Doubtfire", Interest.SWIMMING,
-                        LocalDateTime.of(2023, 4,
+                        LocalDateTime.of(2022, 4,
                                 4,
                                 16,
                                 0)

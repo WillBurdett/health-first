@@ -22,7 +22,7 @@ public class WelcomeController {
     }
     @GetMapping("/welcome/classes")
     public List<ClassInfo> hello(){
-        return service.getRelevantClasses(Interest.DANCE);
+        return service.getRelevantClasses(Interest.SWIMMING);
     }
     @PostMapping(
             value = "/welcome",
