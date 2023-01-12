@@ -24,11 +24,7 @@ public class WelcomeController {
     public List<ClassInfo> hello(){
         return service.getRelevantClasses(Interest.SWIMMING);
     }
-    @PostMapping(
-            value = "/welcome",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(value = "/welcome")
     public List<ClassInfo> addClass(@Valid @RequestBody Member member) {
         List<ClassInfo> addMemberClass = service.handleNewMember(member);
 //        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
