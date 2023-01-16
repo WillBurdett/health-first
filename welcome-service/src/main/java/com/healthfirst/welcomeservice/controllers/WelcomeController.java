@@ -22,7 +22,7 @@ public class WelcomeController {
     }
 
     @PostMapping(value = "/welcome")
-    public List<ClassInfo> addClass(@Valid @RequestBody Member member) {
+    public List<ClassInfo> handleNewMember(@Valid @RequestBody Member member) {
         List<ClassInfo> addMemberClass = service.handleNewMember(member);
 //        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 //                .path("/{id}")
