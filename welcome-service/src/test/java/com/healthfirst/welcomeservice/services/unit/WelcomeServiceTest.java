@@ -20,41 +20,35 @@ public class WelcomeServiceTest {
   @Autowired
   WelcomeService service;
 
+  private List<ClassInfo> allClasses = List.of(
+      new ClassInfo(
+          1L, "Rhythmic Aerobics",
+          "Mr.Tickles", Interest.DANCE,
+          LocalDateTime.of(2023, 2,
+              2,
+              14,
+              0)
+      ),
+      new ClassInfo(
+          2L, "Amateur 5-a-side",
+          "Mr.Beckham", Interest.TEAMSPORTS,
+          LocalDateTime.of(2023, 3,
+              3,
+              15,
+              0)
+      ));
+
   @Test
   public void getRelevantClasses_HappyPath(){
     // given
     Interest interest = Interest.DANCE;
-    List<ClassInfo> classes = List.of(
-        new ClassInfo(
-        1L, "Rhythmic Aerobics",
-        "Mr.Tickles", Interest.DANCE,
-        LocalDateTime.of(2023, 2,
-            2,
-            14,
-            0)
-    ),
-        new ClassInfo(
-            2L, "Amateur 5-a-side",
-            "Mr.Beckham", Interest.TEAMSPORTS,
-            LocalDateTime.of(2023, 3,
-                3,
-                15,
-                0)
-        ));
 
     // when
     List<ClassInfo> actual = service.getRelevantClasses(interest);
 
     // then
     assertThat(actual.size()).isEqualTo(1);
-    assertThat(actual.get(0)).isEqualTo(new ClassInfo(
-        1L, "Rhythmic Aerobics",
-        "Mr.Tickles", Interest.DANCE,
-        LocalDateTime.of(2023, 2,
-            2,
-            14,
-            0)
-    ));
+    assertThat(actual.get(0)).isEqualTo(allClasses.get(0)
+    );
   }
-
 }

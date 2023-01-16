@@ -20,10 +20,7 @@ public class WelcomeController {
     public WelcomeController(WelcomeService service) {
         this.service = service;
     }
-    @GetMapping("/welcome/classes")
-    public List<ClassInfo> hello(){
-        return service.getRelevantClasses(Interest.SWIMMING);
-    }
+
     @PostMapping(value = "/welcome")
     public List<ClassInfo> addClass(@Valid @RequestBody Member member) {
         List<ClassInfo> addMemberClass = service.handleNewMember(member);
