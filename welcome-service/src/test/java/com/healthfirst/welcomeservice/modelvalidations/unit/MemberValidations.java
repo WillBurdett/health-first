@@ -62,7 +62,7 @@ public class MemberValidations {
   }
 
   @Test
-  public void age_InvalidEmailCausesError(){
+  public void email_InvalidEmailCausesError(){
     Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass1234",
         Interest.DANCE);
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
@@ -70,7 +70,7 @@ public class MemberValidations {
   }
 
   @Test
-  public void age_PasswordLessThan8CharactersCausesError(){
+  public void password_PasswordLessThan8CharactersCausesError(){
     Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass",
         Interest.DANCE);
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
