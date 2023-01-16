@@ -30,10 +30,50 @@ public class MemberValidations {
   }
 
   @Test
-  public void firstName_LeftBlank(){
-    Member blankFirstName = new Member(1L, "", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234",
+  public void firstName_LeftBlankCausesError(){
+    Member member = new Member(1L, "", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234",
         Interest.DANCE);
-    Set<ConstraintViolation<Member>> violations = validator.validate(blankFirstName);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
+    assertFalse(violations.isEmpty());
+  }
+
+  @Test
+  public void secondName_LeftBlankCausesError(){
+    Member member = new Member(1L, "bob", "", 21, Gender.MALE, "bob@gmail.com", "pass1234",
+        Interest.DANCE);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
+    assertFalse(violations.isEmpty());
+  }
+
+  @Test
+  public void age_LessThan18CausesError(){
+    Member member = new Member(1L, "bob", "marley", 5, Gender.MALE, "bob@gmail.com", "pass1234",
+        Interest.DANCE);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
+    assertFalse(violations.isEmpty());
+  }
+
+  @Test
+  public void age_MoreThan130CausesError(){
+    Member member = new Member(1L, "bob", "marley", 131, Gender.MALE, "bob@gmail.com", "pass1234",
+        Interest.DANCE);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
+    assertFalse(violations.isEmpty());
+  }
+
+  @Test
+  public void age_InvalidEmailCausesError(){
+    Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass1234",
+        Interest.DANCE);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
+    assertFalse(violations.isEmpty());
+  }
+
+  @Test
+  public void age_PasswordLessThan8CharactersCausesError(){
+    Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass",
+        Interest.DANCE);
+    Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
 
