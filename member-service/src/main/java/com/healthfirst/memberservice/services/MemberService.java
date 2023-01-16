@@ -33,6 +33,7 @@ public class MemberService {
 
     public Member addMember(Member member) {
         Member savedMember = memberRepo.save(member);
+        // TODO: 16/01/2023 send Member to welcome-service via POST method
         return savedMember;
     }
 

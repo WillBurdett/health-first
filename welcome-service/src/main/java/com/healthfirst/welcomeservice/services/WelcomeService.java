@@ -48,6 +48,8 @@ public class WelcomeService {
 
     public List<ClassInfo> getRelevantClasses(Interest interest){
         List <ClassInfo> relevantClasses = new ArrayList<>();
+        // TODO: 16/01/2023 GET method for all classes from class-service
+
         // TODO: 10/01/2023 this will be to handle List <Interest>
 //        for (Interest i:
 //             interests) {
@@ -59,6 +61,7 @@ public class WelcomeService {
 //            }
 //        }
 
+        // filtering all classes to match Members Interest
         for (ClassInfo c:
             allClasses) {
             if (interest.equals(c.getClassType())){
@@ -70,6 +73,7 @@ public class WelcomeService {
     }
 
     public List<ClassInfo> handleNewMember(Member member){
+        // TODO: 16/01/2023 email relevant classes
         return getRelevantClasses(member.getInterest());
     }
 }
