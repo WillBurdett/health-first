@@ -2,11 +2,13 @@ package com.healthfirst.welcomeservice.controllers.unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +22,12 @@ import com.healthfirst.welcomeservice.services.WelcomeService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +45,15 @@ public class WelcomeControllerTest {
   private  static final String CLASS_TIME = "2023-02-02T14:00:00";
   private static final Member MEMBER = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234",
       Interest.DANCE);
+  private static final Member INVALID_MEMBER = new Member(1L, "", "marley", 21, Gender.MALE, "bob@gmail.com",
+      "pass1234",
+      Interest.DANCE);
   private static final List<ClassInfo> CLASS_INFO_LIST = List.of(
       new ClassInfo(
         1L, "Rhythmic Aerobics",
         "Mr.Tickles", Interest.DANCE,
         LocalDateTime.parse(CLASS_TIME))
     );
-
 
   @Autowired
   private MockMvc mockMvc;
@@ -70,5 +80,16 @@ public class WelcomeControllerTest {
         .andExpect(jsonPath("$[0].classTime", is(CLASS_TIME)));
 
     verify(service, times(1)).handleNewMember(MEMBER);
+  }
+
+  @Test
+  public void handleNewMember_ErrorsIfMemberInvalid() throws Exception {
+
+    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    String json = ow.writeValueAsString(INVALID_MEMBER);
+
+    this.mockMvc.perform(MockMvcRequestBuilders.post("/welcome")
+            .contentType(MediaType.APPLICATION_JSON).content(json))
+        .andExpect(status().isBadRequest());
   }
 }
