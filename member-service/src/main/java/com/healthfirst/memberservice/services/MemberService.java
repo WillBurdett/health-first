@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.services;
 
+import com.healthfirst.memberservice.feign.WelcomeServiceCalls;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
 import com.healthfirst.memberservice.repositories.MemberRepo;
@@ -11,10 +12,14 @@ import java.util.Optional;
 @Service
 public class MemberService {
 
-    private MemberRepo memberRepo;
+    private final MemberRepo memberRepo;
+
+    private final WelcomeServiceCalls welcomeServiceCalls;
+
     @Autowired
-    public MemberService(MemberRepo memberRepo) {
+    public MemberService(MemberRepo memberRepo, WelcomeServiceCalls welcomeServiceCalls) {
         this.memberRepo = memberRepo;
+        this.welcomeServiceCalls = welcomeServiceCalls;
     }
 
     public List<Member> getAllMembers(){
@@ -34,6 +39,7 @@ public class MemberService {
     public Member addMember(Member member) {
         Member savedMember = memberRepo.save(member);
         // TODO: 16/01/2023 send Member to welcome-service via POST method
+        welcomeServiceCalls.sendNewMemberToWelcomeService(member);
         return savedMember;
     }
 
