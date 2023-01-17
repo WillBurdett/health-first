@@ -18,26 +18,16 @@ import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.models.ClassInfo;
 import com.healthfirst.welcomeservice.models.Member;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
-import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 import java.util.Set;
-import javax.mail.Authenticator;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
@@ -96,9 +86,14 @@ public class WelcomeService {
 
     public List<ClassInfo> handleNewMember(Member member) throws MessagingException, IOException {
         System.out.println(member);
-        sendMail("It worked!", "Hello world!\n\nfrom Health First");
-        // TODO: 16/01/2023 email relevant classes
-        return getRelevantClasses(member.getInterest());
+        List<ClassInfo> classInfo = getRelevantClasses(member.getInterest());
+
+        /** do not use in dev - it will send real emails to test members
+        sendMail("Relevant classes", classInfo.toString(), member.getEmail()); **/
+
+        sendMail("Relevant classes", classInfo.toString(), HEALTH_FIRST_EMAIL);
+
+        return classInfo;
     }
 
     public List<ClassInfo> getRelevantClasses(Interest interest){
@@ -145,7 +140,7 @@ public class WelcomeService {
         return credential;
     }
 
-    public void sendMail(String subject, String message)
+    public void sendMail(String subject, String message, String memberEmail)
         throws IOException, MessagingException {
         // Encode as MIME message
         Properties props = new Properties();
@@ -153,7 +148,7 @@ public class WelcomeService {
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(HEALTH_FIRST_EMAIL));
         email.addRecipient(javax.mail.Message.RecipientType.TO,
-            new InternetAddress(HEALTH_FIRST_EMAIL));
+            new InternetAddress(memberEmail));
         email.setSubject(subject);
         email.setText(message);
 
