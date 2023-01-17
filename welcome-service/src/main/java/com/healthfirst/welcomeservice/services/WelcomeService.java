@@ -73,6 +73,7 @@ public class WelcomeService {
     }
 
     public List<ClassInfo> handleNewMember(Member member){
+        System.out.println(member);
         // TODO: 16/01/2023 email relevant classes
         return getRelevantClasses(member.getInterest());
     }
