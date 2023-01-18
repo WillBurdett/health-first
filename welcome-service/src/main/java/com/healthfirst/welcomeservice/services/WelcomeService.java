@@ -91,7 +91,7 @@ public class WelcomeService {
         /** do not use in dev - it will send real emails to test members
         sendMail("Relevant classes", classInfo.toString(), member.getEmail()); **/
 
-        sendMail("Relevant classes", classInfo.toString(), HEALTH_FIRST_EMAIL);
+        sendMail("Hello hello", "congrats\n\nit worked!", HEALTH_FIRST_EMAIL);
 
         return classInfo;
     }

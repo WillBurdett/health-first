@@ -54,16 +54,14 @@ public class ClassInfoValidations {
 
     }
 
-//    @Test
-//    // TODO: 17/01/2023 not sure how to test enums
-//    public void  classTypeName_LeftBlankCausesError(){
-//        ClassInfo classInfo = new ClassInfo(1l, "Boxing", "james", Interest.valueOf(),
-//                LocalDateTime.of(2023,2, 10, 12, 10));
-//
-//        Set<ConstraintViolation<ClassInfo>> constraintViolations = validator.validate(classInfo);
-//        assertFalse(constraintViolations.isEmpty());
-//
-//    }
+    @Test
+    public void  classTypeName_NullCausesError(){
+        ClassInfo classInfo = new ClassInfo(1l, "Boxing", "james", null,
+            LocalDateTime.of(2023,2, 10, 12, 10));
+
+        Set<ConstraintViolation<ClassInfo>> constraintViolations = validator.validate(classInfo);
+        assertFalse(constraintViolations.isEmpty());
+    }
 
     @Test
     public void  classTimeError_Past(){
