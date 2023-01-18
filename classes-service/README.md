@@ -1,0 +1,1 @@
+project build: - mvn clean package -DskipTestsimage build:-  docker build -t classes-service:latest .docker-compose:- docker-compose -f docker-compose.yml up

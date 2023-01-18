@@ -1,0 +1,1 @@
+package com.healthfirst.classesservice.repositories;import com.healthfirst.classesservice.models.ClassInfo;import org.springframework.data.mongodb.repository.MongoRepository;import org.springframework.stereotype.Repository;@Repositorypublic interface ClassesRepo extends MongoRepository<ClassInfo, Long> {}
