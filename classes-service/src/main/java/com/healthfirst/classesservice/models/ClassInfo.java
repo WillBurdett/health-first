@@ -1,6 +1,7 @@
 package com.healthfirst.classesservice.models;
 
 import com.healthfirst.classesservice.enums.ClassType;
+import com.healthfirst.classesservice.validation.ClassTypeSubset;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
@@ -25,8 +26,7 @@ public class ClassInfo {
     @NotBlank(message = "instructor cannot be empty")
     private String instructor;
     @NotNull(message = "classType cannot be null")
-    // TODO: 18/01/2023 this will come when custom constraint validations are added 
-    //@ClassTypeTypeSubset(anyOf = {ClassType.DANCE, ClassType.TEAMSPORTS, ClassType.SWIMMING, ClassType.ATHLETICS})
+    @ClassTypeSubset(anyOf = {ClassType.DANCE, ClassType.TEAMSPORTS, ClassType.SWIMMING, ClassType.ATHLETICS})
     private ClassType classType;
     @Future(message = "classTime must take place in the future")
     private LocalDateTime classTime;
