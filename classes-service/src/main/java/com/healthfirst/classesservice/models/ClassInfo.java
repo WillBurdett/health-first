@@ -21,7 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ClassInfo {
 
     @Transient
-    public static final String SEQUENCE_NAME = "users_sequence";
+    public static final String SEQUENCE_NAME = "classes_sequence";
 
     @Id
     private Long id;
