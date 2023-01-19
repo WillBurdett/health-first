@@ -207,8 +207,11 @@
 				},
 				{
 					"name": "Get relevant classes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -220,14 +223,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/classes",
+							"raw": "http://localhost:8082/classes/relevant/teamsports",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8082",
 							"path": [
-								"classes"
+								"classes",
+								"relevant",
+								"teamsports"
 							]
 						}
 					},
@@ -299,7 +304,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2022-02-02T02:02:00\"\n}",
+							"raw": "{\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Another America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2024-02-02T02:02:00\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -327,7 +332,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"className\": \"Push-ups\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2024-02-02T02:02:00\"\n}",
+							"raw": "{\n  \"className\": \"Lazy-ups\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2024-02-02T02:02:00\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
