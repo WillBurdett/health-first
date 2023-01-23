@@ -54,40 +54,6 @@ public class WelcomeService {
             .build();
     }
 
-    public static List<ClassInfo> allClasses = new ArrayList<>();
-    static {
-        allClasses.add(
-                new ClassInfo(
-                        1L, "Rhythmic Aerobics",
-                        "Mr.Tickles", Interest.DANCE,
-                        LocalDateTime.of(2023, 2,
-                                2,
-                                14,
-                                0)
-                )
-        );
-        allClasses.add(
-                new ClassInfo(
-                        2L, "Amateur 5-a-side",
-                        "Mr.Beckham", Interest.TEAMSPORTS,
-                        LocalDateTime.of(2023, 3,
-                                3,
-                                15,
-                                0)
-                )
-        );
-        allClasses.add(
-                new ClassInfo(
-                        3L, "Aqua-fit",
-                        "Mrs.Doubtfire", Interest.SWIMMING,
-                        LocalDateTime.of(2022, 4,
-                                4,
-                                16,
-                                0)
-                )
-        );
-    }
-
     public List<ClassInfo> handleNewMember(Member member) throws MessagingException, IOException {
         System.out.println(member);
         List<ClassInfo> relevantClasses = getRelevantClasses(member.getInterest());
