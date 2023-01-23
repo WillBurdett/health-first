@@ -15,6 +15,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 import com.healthfirst.welcomeservice.enums.Interest;
+import com.healthfirst.welcomeservice.feign.ClassesServiceCalls;
 import com.healthfirst.welcomeservice.models.ClassInfo;
 import com.healthfirst.welcomeservice.models.Member;
 import java.io.ByteArrayOutputStream;
@@ -29,6 +30,7 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,10 +40,12 @@ import java.util.List;
 @Service
 public class WelcomeService {
 
+    private final ClassesServiceCalls classesServiceCalls;
     private static final String HEALTH_FIRST_EMAIL = "health.first.app.v1@gmail.com";
     private final Gmail gmailService;
 
-    public WelcomeService() throws Exception {
+    public WelcomeService(ClassesServiceCalls classesServiceCalls) throws Exception {
+        this.classesServiceCalls = classesServiceCalls;
         // send email to yourself
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -86,39 +90,25 @@ public class WelcomeService {
 
     public List<ClassInfo> handleNewMember(Member member) throws MessagingException, IOException {
         System.out.println(member);
-        List<ClassInfo> classInfo = getRelevantClasses(member.getInterest());
+        List<ClassInfo> relevantClasses = getRelevantClasses(member.getInterest());
 
         /** do not use in dev - it will send real emails to test members
-        sendMail("Relevant classes", classInfo.toString(), member.getEmail()); **/
+        sendMail(
+         "Hello hello",
+         "Relevant classes for "+member.getInterest() +":\n\n" + relevantClasses.toString(),
+         member.getEmail()); **/
 
-        sendMail("Hello hello", "congrats\n\nit worked!", HEALTH_FIRST_EMAIL);
+        sendMail(
+            "Hello hello",
+            "Relevant classes for "+member.getInterest() +":\n\n" + relevantClasses.toString(),
+            HEALTH_FIRST_EMAIL);
 
-        return classInfo;
+        return relevantClasses;
     }
 
     public List<ClassInfo> getRelevantClasses(Interest interest){
-        List <ClassInfo> relevantClasses = new ArrayList<>();
-        // TODO: 16/01/2023 GET method for all classes from class-service
-
-        // TODO: 10/01/2023 this will be to handle List <Interest>
-//        for (Interest i:
-//             interests) {
-//            for (ClassInfo c:
-//                 allClasses) {
-//                if (i.equals(c.getClassType())){
-//                    relevantClasses.add(c);
-//                }
-//            }
-//        }
-
-        // filtering all classes to match Members Interest
-        for (ClassInfo c:
-            allClasses) {
-            if (interest.equals(c.getClassType())){
-                    relevantClasses.add(c);
-                }
-            }
-
+        // GETs all relevant classes from class-service based on singular interest
+       List <ClassInfo> relevantClasses = classesServiceCalls.getRelevantClassesFromClassesService(interest);
         return relevantClasses;
     }
 
