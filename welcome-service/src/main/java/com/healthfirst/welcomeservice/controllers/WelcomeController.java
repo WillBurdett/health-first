@@ -28,10 +28,6 @@ public class WelcomeController {
     public List<ClassInfo> handleNewMember(@Valid @RequestBody Member member)
         throws MessagingException, GeneralSecurityException, IOException {
         List<ClassInfo> addMemberClass = service.handleNewMember(member);
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(addClass.getId())
-//                .toUri();
         return  addMemberClass;
     }
 }
