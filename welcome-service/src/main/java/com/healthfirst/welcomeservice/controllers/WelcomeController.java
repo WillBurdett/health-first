@@ -1,6 +1,5 @@
 package com.healthfirst.welcomeservice.controllers;
 
-import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.models.ClassInfo;
 import com.healthfirst.welcomeservice.models.Member;
 import com.healthfirst.welcomeservice.services.WelcomeService;
@@ -8,7 +7,6 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

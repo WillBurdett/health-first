@@ -137,14 +137,6 @@
 			"name": "Welcome-Service",
 			"item": [
 				{
-					"name": "Get Classes Example",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
 					"name": "Get Relevant",
 					"request": {
 						"method": "POST",
