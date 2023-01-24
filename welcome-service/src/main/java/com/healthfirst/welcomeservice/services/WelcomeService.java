@@ -33,8 +33,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,6 +42,7 @@ public class WelcomeService {
     private static final String HEALTH_FIRST_EMAIL = "health.first.app.v1@gmail.com";
     private final Gmail gmailService;
 
+    @Autowired
     public WelcomeService(ClassesServiceCalls classesServiceCalls) throws Exception {
         this.classesServiceCalls = classesServiceCalls;
         // send email to yourself
@@ -54,9 +53,16 @@ public class WelcomeService {
             .build();
     }
 
-    public List<ClassInfo> handleNewMember(Member member) throws MessagingException, IOException {
+    public List<ClassInfo> handleNewMember(Member member) throws Exception {
         System.out.println(member);
-        List<ClassInfo> relevantClasses = getRelevantClasses(member.getInterest());
+        List<ClassInfo> relevantClasses;
+        try {
+            relevantClasses = getRelevantClasses(member.getInterest());
+        } catch (Exception e){
+            System.out.println(e.getMessage()+ "\n" + e.getCause() + "\n" + e.getLocalizedMessage());
+            throw new Exception(e.getMessage());
+        }
+
 
         /** do not use in dev - it will send real emails to test members
         sendMail(
@@ -66,7 +72,7 @@ public class WelcomeService {
 
         sendMail(
             "Hello hello",
-            "Relevant classes for "+member.getInterest() +":\n\n" + relevantClasses.toString(),
+            "Relevant classes for " + member.getInterest() + ":\n\n" + relevantClasses.toString(),
             HEALTH_FIRST_EMAIL);
 
         return relevantClasses;

@@ -24,7 +24,7 @@ public class WelcomeController {
 
     @PostMapping(value = "/welcome")
     public List<ClassInfo> handleNewMember(@Valid @RequestBody Member member)
-        throws MessagingException, GeneralSecurityException, IOException {
+        throws Exception {
         List<ClassInfo> addMemberClass = service.handleNewMember(member);
         return  addMemberClass;
     }

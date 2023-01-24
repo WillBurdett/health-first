@@ -7,9 +7,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient (value = "classes-service", url = "http://localhost:8082/classes")
+@FeignClient (value = "classes-service", url = "http://classes-service:8082")
 public interface ClassesServiceCalls {
 
-  @GetMapping(value = "/relevant/{classType}", produces = "application/json")
-  List<ClassInfo> getRelevantClassesFromClassesService(@PathVariable("classType") Interest interest);
+  @GetMapping(value = "/classes/relevant/{classType}", produces = "application/json")
+  List<ClassInfo> getRelevantClassesFromClassesService(@PathVariable("classType") Interest classType);
 }
