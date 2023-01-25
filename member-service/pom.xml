@@ -106,6 +106,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<finalName>member-service</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

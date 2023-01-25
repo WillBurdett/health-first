@@ -2,10 +2,15 @@ package com.healthfirst.memberservice.models;
 
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.*;
-
-import javax.persistence.*;
 import javax.validation.constraints.*;
+
 
 @Data
 @NoArgsConstructor
@@ -13,6 +18,7 @@ import javax.validation.constraints.*;
 @Entity(name = "member")
 @Table(name = "members")
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column

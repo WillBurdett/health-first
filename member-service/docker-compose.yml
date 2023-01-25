@@ -1,16 +1,29 @@
 
 version: "3"
 services:
-  membermysqldb:
+  memberdb:
     platform: linux/x86_64
     image: mysql:5.7
+    container_name: memberdb
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_DATABASE=memberdb
     ports:
-      - "3308:3308"
+      - "3308:3306"
+    restart: unless-stopped
     volumes:
       - data:/data
+  member-service:
+    image: member-service:latest
+    depends_on:
+      - memberdb
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://memberdb:3306/memberdb?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+
 volumes:
   data: {}
 
