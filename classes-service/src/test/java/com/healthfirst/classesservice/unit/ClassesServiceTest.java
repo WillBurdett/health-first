@@ -30,9 +30,10 @@ public class ClassesServiceTest {
   ClassesRepo repo;
 
   @Test
-  public void getAllClasses() {
+  public void getAllClasses_HappyPath() {
     // given
     ClassInfo classInfo =  new ClassInfo(
+        1L,
         "Beginners Swimming",
         "David Schwimmer",
         ClassType.SWIMMING,
@@ -50,22 +51,97 @@ public class ClassesServiceTest {
   }
 
   @Test
-  public void getClassById() {
+  public void getClassById_HappyPath() {
+    // given
+    ClassInfo classInfo =  new ClassInfo(
+        1L,
+        "Beginners Swimming",
+        "David Schwimmer",
+        ClassType.SWIMMING,
+        LocalDateTime.of(2024, 2, 2, 2,2));
+    when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
+
+    // when
+    ClassInfo actual = service.getClassById(1L);
+
+    // then
+    ClassInfo expected = classInfo;
+    verify(repo, times(1)).findAll();
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void addClass() {
+  public void addClass_HappyPath() {
+    // given
+    ClassInfo classInfo =  new ClassInfo(
+        1L,
+        "Beginners Swimming",
+        "David Schwimmer",
+        ClassType.SWIMMING,
+        LocalDateTime.of(2024, 2, 2, 2,2));
+
+    // when
+    service.addClass(classInfo);
+
+    // then
+    verify(repo, times(1)).save(classInfo);
   }
 
   @Test
-  public void deleteClass() {
+  public void deleteClass_HappyPath() {
+    // given
+    Long id = 1L;
+
+    // when
+    service.deleteClass(id);
+
+    // then
+    verify(repo, times(1)).deleteById(id);
   }
 
   @Test
-  public void updateClass() {
+  public void updateClass_HappyPath() {
+    // given
+    ClassInfo originalClassInfo =  new ClassInfo(
+        1L,
+        "Beginners Swimming",
+        "David Schwimmer",
+        ClassType.SWIMMING,
+        LocalDateTime.of(2024, 2, 2, 2,2));
+    when(repo.findAll()).thenReturn(List.of(originalClassInfo));
+
+    ClassInfo updatedClassInfo =  new ClassInfo(
+        1L,
+        "Advanced Swimming",
+        "David Schwimmer",
+        ClassType.SWIMMING,
+        LocalDateTime.of(2024, 2, 2, 2,2));
+
+    // when
+    service.updateClass(1L, updatedClassInfo);
+
+    // then
+    verify(repo, times(1)).findAll();
+    verify(repo, times(1)).save(updatedClassInfo);
   }
 
   @Test
-  public void getRelevantClasses() {
+  public void getRelevantClasses_HappyPath() {
+    // given
+    ClassInfo classInfo =  new ClassInfo(
+        1L,
+        "Beginners Swimming",
+        "David Schwimmer",
+        ClassType.SWIMMING,
+        LocalDateTime.of(2024, 2, 2, 2,2));
+    when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
+
+    // when
+    List<ClassInfo> actual = service.getRelevantClasses(ClassType.SWIMMING);
+    List<ClassInfo> expected = Arrays.asList(classInfo);
+
+    // then
+    verify(repo, times(1)).findAll();
+    assertThat(actual).isEqualTo(expected);
   }
 }
