@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.unit;
 
+import com.healthfirst.memberservice.feign.WelcomeServiceCalls;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
 import com.healthfirst.memberservice.repositories.MemberRepo;
@@ -28,6 +29,9 @@ public class MemberServiceTest {
 
     @Autowired
     MemberService service;
+
+    @MockBean
+    WelcomeServiceCalls welcomeServiceCalls;
 
     @MockBean
     MemberRepo repo;
@@ -104,13 +108,17 @@ public class MemberServiceTest {
     public void updateMember_UpdatesWhenMemberValid() {
         // given
         Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
+        Member bobUpdated = new Member(1L, "bobby", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123",
+            Interest.ATHLETICS);
+
         when(repo.findAll()).thenReturn(List.of(bob));
 
         // when
-        service.updateMember(1L, bob);
+        service.updateMember(1L, bobUpdated);
 
         // then
         verify(repo, times(1)).findAll();
+        verify(repo, times(1)).save(bobUpdated);
     }
 
     @Test
