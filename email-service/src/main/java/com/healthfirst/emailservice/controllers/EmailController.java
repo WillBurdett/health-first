@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmailServiceController {
+public class EmailController {
 
   @Autowired
   private final EmailService service;
 
-  public EmailServiceController(EmailService service) {
+  public EmailController(EmailService service) {
     this.service = service;
   }
 
