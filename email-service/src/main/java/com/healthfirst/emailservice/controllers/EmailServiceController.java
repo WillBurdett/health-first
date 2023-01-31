@@ -4,7 +4,6 @@ import com.healthfirst.emailservice.enums.ClassType;
 import com.healthfirst.emailservice.models.ClassInfo;
 import com.healthfirst.emailservice.services.EmailService;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
