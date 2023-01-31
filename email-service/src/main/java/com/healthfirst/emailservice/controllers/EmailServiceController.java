@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +32,11 @@ public class EmailServiceController {
         LocalDateTime.of(2024, 2, 2, 2,2));
   }
 
-  @PostMapping(path = "/email")
-  public List<ClassInfo> handleClassesToEmail(@RequestBody List<ClassInfo> classes){
-    return service.handleClassesToEmail(classes);
+  @PostMapping(path = "/email/name/{name}/email/{email}")
+  public List<ClassInfo> handleClassesToEmail(
+      @RequestBody List<ClassInfo> classes,
+      @PathVariable String name,
+      @PathVariable String email){
+    return service.handleClassesToEmail(classes, name, email);
   }
 }
