@@ -1,6 +1,7 @@
 package com.healthfirst.emailservice.models;
 
 import java.util.List;
+import javax.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Email {
 
+  @NotBlank
   private String name;
+  @javax.validation.constraints.Email
   private String email;
+  @NotNull
   private List<ClassInfo> classes;
 
   public String formatEmail(){

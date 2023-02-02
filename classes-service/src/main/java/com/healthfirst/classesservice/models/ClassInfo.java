@@ -1,6 +1,5 @@
 package com.healthfirst.classesservice.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.healthfirst.classesservice.enums.ClassType;
 import com.healthfirst.classesservice.validation.ClassTypeSubset;
 import java.time.LocalDateTime;
