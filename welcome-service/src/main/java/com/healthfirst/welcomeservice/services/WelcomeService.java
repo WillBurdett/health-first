@@ -16,6 +16,7 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.feign.ClassesServiceCalls;
+import com.healthfirst.welcomeservice.feign.EmailServiceCalls;
 import com.healthfirst.welcomeservice.models.ClassInfo;
 import com.healthfirst.welcomeservice.models.Member;
 import java.io.ByteArrayOutputStream;
@@ -39,12 +40,14 @@ import java.util.List;
 public class WelcomeService {
 
     private final ClassesServiceCalls classesServiceCalls;
+    private final EmailServiceCalls emailServiceCalls;
     private static final String HEALTH_FIRST_EMAIL = "health.first.app.v1@gmail.com";
     private final Gmail gmailService;
 
     @Autowired
-    public WelcomeService(ClassesServiceCalls classesServiceCalls) throws Exception {
+    public WelcomeService(ClassesServiceCalls classesServiceCalls, EmailServiceCalls emailServiceCalls) throws Exception {
         this.classesServiceCalls = classesServiceCalls;
+        this.emailServiceCalls = emailServiceCalls;
         // send email to yourself
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
