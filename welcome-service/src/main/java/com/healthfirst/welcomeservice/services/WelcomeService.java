@@ -78,6 +78,8 @@ public class WelcomeService {
             "Relevant classes for " + member.getInterest() + ":\n\n" + relevantClasses.toString(),
             HEALTH_FIRST_EMAIL);
 
+        emailServiceCalls.sendRelevantClassesToEmailService(member.getFirstName(), member.getEmail(), relevantClasses);
+
         return relevantClasses;
     }
 
