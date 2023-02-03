@@ -58,6 +58,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://memberdb:3306/memberdb?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root    
 
+  email-service:
+    image: email-service:latest
+    ports:
+      - "8088:8088"    
+
 volumes:
   data: {}
 
