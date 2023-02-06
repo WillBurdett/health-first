@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\": \"lionel\",\n  \"lastName\": \"messi\",\n  \"age\": 18,\n  \"gender\": \"MALE\",\n  \"email\": \"messi@email.com\",\n  \"password\": \"football123\",\n  \"interest\": \"TEAMSPORTS\"\n}",
+							"raw": "{\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interest\": \"TEAMSPORTS\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,10 +140,16 @@
 					"name": "Get Relevant",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"id\": 1,\n        \"firstName\": \"lionel\",\n        \"lastName\": \"messi\",\n        \"age\": 18,\n        \"gender\": \"MALE\",\n        \"email\": \"messi@email.com\",\n        \"password\": \"football123\",\n        \"interest\": \"SWIMMING\"\n    }",
+							"raw": "{\n    \"id\": 1,\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 18,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@email.com\",\n    \"password\": \"football123\",\n    \"interest\": \"TEAMSPORTS\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,14 +157,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/welcome",
+							"raw": "http://localhost:8110/welcome",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8110",
 							"path": [
 								"welcome"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -204,7 +217,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"id\": 1,\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2022-02-02T02:02:00\"\n}",
@@ -341,6 +360,68 @@
 							"path": [
 								"classes",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Email-Service",
+			"item": [
+				{
+					"name": "Get ClassInfo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/hello",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email Classes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 1,\n        \"className\": \"Beginners Swimming\",\n        \"instructor\": \"David Schwimmer\",\n        \"classType\": \"SWIMMING\",\n        \"classTime\": \"2024-02-02T02:02:00\"\n    },\n    {\n        \"id\": 2,\n        \"className\": \"Beginners Swimming\",\n        \"instructor\": \"David Schwimmer\",\n        \"classType\": \"SWIMMING\",\n        \"classTime\": \"2024-02-02T02:02:00\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8100/email/name/will/email/will@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"email",
+								"name",
+								"will",
+								"email",
+								"will@gmail.com"
 							]
 						}
 					},
