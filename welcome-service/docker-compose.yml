@@ -3,6 +3,6 @@ services:
   welcome-service:
     image: welcome-service:latest
     ports:
-      - "8888:8888"
+      - "8110:8110"
 
 

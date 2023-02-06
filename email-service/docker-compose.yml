@@ -3,6 +3,6 @@ services:
   email-service:
     image: email-service:latest
     ports:
-      - "8088:8088"
+      - "8100:8100"
 
 

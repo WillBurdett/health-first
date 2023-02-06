@@ -3,8 +3,10 @@ package com.healthfirst.emailservice.controllers;
 import com.healthfirst.emailservice.enums.ClassType;
 import com.healthfirst.emailservice.models.ClassInfo;
 import com.healthfirst.emailservice.services.EmailService;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,10 +35,10 @@ public class EmailController {
   }
 
   @PostMapping(path = "/email/name/{name}/email/{email}")
-  public List<ClassInfo> handleClassesToEmail(
+  public void handleClassesToEmail(
       @RequestBody List<ClassInfo> classes,
       @PathVariable String name,
-      @PathVariable String email){
-    return service.handleClassesToEmail(classes, name, email);
+      @PathVariable String email) throws MessagingException, IOException {
+    service.handleWelcomeEmailToNewMembers(classes, name, email);
   }
 }
