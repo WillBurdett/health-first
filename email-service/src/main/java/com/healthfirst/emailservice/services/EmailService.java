@@ -104,7 +104,7 @@ public class EmailService {
         .setDataStoreFactory(new FileDataStoreFactory(Paths.get("tokens").toFile()))
         .setAccessType("offline")
         .build();
-    LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+    LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8100).build();
     Credential credential = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     //returns an authorized Credential object.
     return credential;
