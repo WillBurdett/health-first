@@ -90,6 +90,7 @@ public class MemberServiceTest {
 
         // then
         verify(repo, times(1)).save(bob);
+        verify(welcomeServiceCalls, times(1)).sendNewMemberToWelcomeService(bob);
     }
 
     @Test
