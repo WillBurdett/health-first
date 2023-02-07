@@ -1,4 +1,4 @@
-package com.healthfirst.welcomeservice.modelvalidations.unit;
+package com.healthfirst.welcomeservice.unit;
 
 import static org.junit.Assert.assertFalse;
 

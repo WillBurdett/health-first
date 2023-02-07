@@ -1,4 +1,4 @@
-package com.healthfirst.welcomeservice.modelvalidations.unit;
+package com.healthfirst.welcomeservice.unit;
 
 import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.models.ClassInfo;

@@ -1,4 +1,4 @@
-package com.healthfirst.welcomeservice.controllers.unit;
+package com.healthfirst.welcomeservice.unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;

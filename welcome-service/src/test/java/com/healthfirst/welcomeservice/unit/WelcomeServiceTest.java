@@ -1,8 +1,13 @@
-package com.healthfirst.welcomeservice.services.unit;
+package com.healthfirst.welcomeservice.unit;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.healthfirst.welcomeservice.enums.Interest;
+import com.healthfirst.welcomeservice.feign.ClassesServiceCalls;
+import com.healthfirst.welcomeservice.feign.EmailServiceCalls;
 import com.healthfirst.welcomeservice.models.ClassInfo;
 import com.healthfirst.welcomeservice.services.WelcomeService;
 import java.time.LocalDateTime;
@@ -11,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -19,6 +25,12 @@ public class WelcomeServiceTest {
 
   @Autowired
   WelcomeService service;
+
+  @MockBean
+  ClassesServiceCalls classesServiceCalls;
+
+  @MockBean
+  EmailServiceCalls emailServiceCalls;
 
   private List<ClassInfo> allClasses = List.of(
       new ClassInfo(
@@ -42,13 +54,14 @@ public class WelcomeServiceTest {
   public void getRelevantClasses_HappyPath(){
     // given
     Interest interest = Interest.DANCE;
+    when(classesServiceCalls.getRelevantClassesFromClassesService(interest)).thenReturn(List.of(allClasses.get(0)));
 
     // when
     List<ClassInfo> actual = service.getRelevantClasses(interest);
 
     // then
     assertThat(actual.size()).isEqualTo(1);
-    assertThat(actual.get(0)).isEqualTo(allClasses.get(0)
-    );
+    assertThat(actual.get(0)).isEqualTo(allClasses.get(0));
+    verify(classesServiceCalls, times(1)).getRelevantClassesFromClassesService(interest);
   }
 }
