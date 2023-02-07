@@ -5,10 +5,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.healthfirst.welcomeservice.enums.Gender;
 import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.feign.ClassesServiceCalls;
 import com.healthfirst.welcomeservice.feign.EmailServiceCalls;
 import com.healthfirst.welcomeservice.models.ClassInfo;
+import com.healthfirst.welcomeservice.models.Member;
 import com.healthfirst.welcomeservice.services.WelcomeService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,7 +53,7 @@ public class WelcomeServiceTest {
       ));
 
   @Test
-  public void getRelevantClasses_HappyPath(){
+  public void getRelevantClasses_HappyPath() {
     // given
     Interest interest = Interest.DANCE;
     when(classesServiceCalls.getRelevantClassesFromClassesService(interest)).thenReturn(List.of(allClasses.get(0)));
@@ -63,5 +65,23 @@ public class WelcomeServiceTest {
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualTo(allClasses.get(0));
     verify(classesServiceCalls, times(1)).getRelevantClassesFromClassesService(interest);
+  }
+
+  @Test
+  public void handleNewMember_HappyPath() throws Exception {
+    // given
+    Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.DANCE);
+    List<ClassInfo> relevantClasses = List.of(allClasses.get(0));
+    when(classesServiceCalls.getRelevantClassesFromClassesService(bob.getInterest())).thenReturn(relevantClasses);
+
+    // when
+    service.handleNewMember(bob);
+
+    // then
+    verify(emailServiceCalls, times(1)).
+        sendRelevantClassesToEmailService(
+            bob.getFirstName(),
+            bob.getEmail(),
+            relevantClasses);
   }
 }
