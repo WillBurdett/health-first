@@ -24,16 +24,6 @@ public class EmailController {
     this.service = service;
   }
 
-  @GetMapping(path = "/hello")
-  public ClassInfo helloWorld(){
-    return new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-  }
-
   @PostMapping(path = "/email/name/{name}/email/{email}")
   public void handleClassesToEmail(
       @RequestBody List<ClassInfo> classes,

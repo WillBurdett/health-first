@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
   private static final String HEALTH_FIRST_EMAIL = "health.first.app.v1@gmail.com";
+  private static final String WELCOME_SUBJECT = "Welcome to Health First!";
   private final Gmail gmailService;
 
   @Autowired
@@ -52,7 +53,7 @@ public class EmailService {
     /**
      * HEALTH_FIRST_EMAIL will be replaced by 'email' in production
      */
-    sendMail("Welcome to Health First!", new Email(name, email, classes).formatEmail(), HEALTH_FIRST_EMAIL);
+    sendMail(WELCOME_SUBJECT, new Email(name, email, classes).formatEmail(), HEALTH_FIRST_EMAIL);
   }
 
   public void sendMail(String subject, String message, String memberEmail)
