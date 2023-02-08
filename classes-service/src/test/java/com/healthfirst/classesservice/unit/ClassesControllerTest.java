@@ -6,10 +6,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -83,12 +85,6 @@ public class ClassesControllerTest {
   }
 
   @Test
-  public void getRelevantClasses() {
-
-
-  }
-
-  @Test
   public void addClass() throws Exception {
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -103,14 +99,27 @@ public class ClassesControllerTest {
   }
 
   @Test
-  public void deleteClass() {
+  public void deleteClass() throws Exception {
+    mockMvc.perform(delete("/classes/1"));
+    verify(service, times(1)).deleteClass(1L);
   }
 
   @Test
-  public void updateClass() {
+  public void updateClass() throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule());
+    ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
+
+    String updatedClass = ow.writeValueAsString(CLASSINFO);
+
+    mockMvc.perform(MockMvcRequestBuilders.put("/classes/1")
+        .contentType(MediaType.APPLICATION_JSON).content(updatedClass));
+    verify(service, times(1)).updateClass(1L, CLASSINFO);
   }
 
   @Test
-  public void hydrate() {
+  public void hydrate() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.post("/hydrate"));
+    verify(service, times(1)).hydrate();
   }
 }
