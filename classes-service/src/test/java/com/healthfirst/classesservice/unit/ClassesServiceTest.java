@@ -137,7 +137,7 @@ public class ClassesServiceTest {
     when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
 
     // when
-    List<ClassInfo> actual = service.getRelevantClasses(ClassType.SWIMMING);
+    List<ClassInfo> actual = service.getRelevantClasses(List.of(ClassType.SWIMMING));
     List<ClassInfo> expected = Arrays.asList(classInfo);
 
     // then
