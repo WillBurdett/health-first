@@ -36,12 +36,21 @@ public class MemberServiceTest {
     @MockBean
     MemberRepo repo;
 
+    private final Member BOB = new Member(
+        1L,
+        "bob",
+        "marley",
+        21,
+        Gender.MALE,
+        "bob@gmail.com",
+        "pass123",
+        List.of(Interest.ATHLETICS));
+
     @Test
     public void getAllMembers_ReturnsAllMembers() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
-        List<Member> expected = Arrays.asList(bob);
-        when(repo.findAll()).thenReturn(Arrays.asList(bob));
+        List<Member> expected = Arrays.asList(BOB);
+        when(repo.findAll()).thenReturn(Arrays.asList(BOB));
 
         // when
         List<Member> actual = service.getAllMembers();
@@ -54,14 +63,13 @@ public class MemberServiceTest {
     @Test
     public void getMemberById_ReturnsMemberWhenExists() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
-        when(repo.findAll()).thenReturn(List.of(bob));
+        when(repo.findAll()).thenReturn(List.of(BOB));
 
         // when
         Member actual = service.getMemberById(1L);
 
         // then
-        Member expected = bob;
+        Member expected = BOB;
         verify(repo, times(1)).findAll();
         assertThat(actual).isEqualTo(expected);
     }
@@ -82,15 +90,12 @@ public class MemberServiceTest {
 
     @Test
     public void addMember_AddsWhenMemberValid() {
-        // given
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
-
         // when
-        service.addMember(bob);
+        service.addMember(BOB);
 
         // then
-        verify(repo, times(1)).save(bob);
-        verify(welcomeServiceCalls, times(1)).sendNewMemberToWelcomeService(bob);
+        verify(repo, times(1)).save(BOB);
+        verify(welcomeServiceCalls, times(1)).sendNewMemberToWelcomeService(BOB);
     }
 
     @Test
@@ -108,11 +113,10 @@ public class MemberServiceTest {
     @Test
     public void updateMember_UpdatesWhenMemberValid() {
         // given
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
         Member bobUpdated = new Member(1L, "bobby", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123",
-            Interest.ATHLETICS);
+            List.of(Interest.ATHLETICS));
 
-        when(repo.findAll()).thenReturn(List.of(bob));
+        when(repo.findAll()).thenReturn(List.of(BOB));
 
         // when
         service.updateMember(1L, bobUpdated);
@@ -125,13 +129,12 @@ public class MemberServiceTest {
     @Test
     public void updateMember_ThrowsExceptionWhenMemberDoesNotExist() {
         // given
-        Member bob = new Member(2L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
         Long idThatDoesNotExist = 1L;
         when(repo.findAll()).thenReturn(List.of());
 
         // when
         assertThatThrownBy(() -> {
-            service.updateMember(idThatDoesNotExist, bob);
+            service.updateMember(idThatDoesNotExist, BOB);
             // then
         }).isInstanceOf(MemberNotFoundException.class)
                 .hasMessage("Member not found with id " + idThatDoesNotExist);

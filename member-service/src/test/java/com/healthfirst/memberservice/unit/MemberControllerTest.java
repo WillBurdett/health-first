@@ -8,6 +8,7 @@ import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.services.MemberService;
 
 import com.healthfirst.memberservice.utils.JsonUtil;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;;
@@ -40,11 +41,19 @@ public class MemberControllerTest {
     @MockBean
     private MemberService service;
 
+    private final Member BOB = new Member(
+        1L,
+        "bob",
+        "marley",
+        21,
+        Gender.MALE,
+        "bob@gmail.com",
+        "pass1234",
+        List.of(Interest.ATHLETICS));
+
     @Test
     public void getAllMembers_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com",
-                "pass123", Interest.ATHLETICS);
-        when(service.getAllMembers()).thenReturn(Arrays.asList(bob));
+        when(service.getAllMembers()).thenReturn(Arrays.asList(BOB));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/members")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -56,16 +65,15 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("$[0].age", is(21)))
                 .andExpect(jsonPath("$[0].gender", is(Gender.MALE.toString())))
                 .andExpect(jsonPath("$[0].email", is("bob@gmail.com")))
-                .andExpect(jsonPath("$[0].password", is("pass123")))
-                .andExpect(jsonPath("$[0].interest", is(Interest.ATHLETICS.toString())));
+                .andExpect(jsonPath("$[0].password", is("pass1234")))
+                .andExpect(jsonPath("$[0].interests", is(List.of(Interest.ATHLETICS.toString()))));
 
         verify(service, times(1)).getAllMembers();
     }
 
     @Test
     public void getMemberById_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.ATHLETICS);
-        when(service.getMemberById(1L)).thenReturn(bob);
+        when(service.getMemberById(1L)).thenReturn(BOB);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/members/1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -76,8 +84,8 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("$.age", is(21)))
                 .andExpect(jsonPath("$.gender", is(Gender.MALE.toString())))
                 .andExpect(jsonPath("$.email", is("bob@gmail.com")))
-                .andExpect(jsonPath("$.password", is("pass123")))
-                .andExpect(jsonPath("$.interest", is(Interest.ATHLETICS.toString())));
+                .andExpect(jsonPath("$.password", is("pass1234")))
+                .andExpect(jsonPath("$.interests", is(List.of(Interest.ATHLETICS.toString()))));
 
         verify(service, times(1)).getMemberById(1L);
     }
@@ -97,11 +105,10 @@ public class MemberControllerTest {
     }
     @Test
     public void addMember_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
-        when(service.addMember(bob)).thenReturn(bob);
+        when(service.addMember(BOB)).thenReturn(BOB);
         mockMvc.perform(MockMvcRequestBuilders.post("/members")
-                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
-        verify(service, times(1)).addMember(bob);
+                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(BOB)));
+        verify(service, times(1)).addMember(BOB);
     }
 
     @Test
@@ -112,21 +119,19 @@ public class MemberControllerTest {
 
     @Test
     public void updateMember_HappyPath() throws Exception {
-        Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
         mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
-                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)));
-        verify(service, times(1)).updateMember(1L, bob);
+                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(BOB)));
+        verify(service, times(1)).updateMember(1L, BOB);
     }
 
     @Test
     public void updateMember_MemberDoesNotExist() throws Exception {
-        Member bob = new Member(2L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234", Interest.ATHLETICS);
-        when(service.updateMember(1L, bob)).thenThrow(new MemberNotFoundException("member not found"));
+        when(service.updateMember(1L, BOB)).thenThrow(new MemberNotFoundException("member not found"));
         mockMvc.perform(MockMvcRequestBuilders.put("/members/1")
-                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(bob)))
+                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(BOB)))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MemberNotFoundException))
                 .andExpect(result -> assertEquals("member not found", result.getResolvedException().getMessage()));
-        verify(service, times(1)).updateMember(1L, bob);
+        verify(service, times(1)).updateMember(1L, BOB);
     }
 }

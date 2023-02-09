@@ -56,7 +56,7 @@ public class MemberService {
            curr.get().setEmail(member.getEmail());
            curr.get().setGender(member.getGender());
            curr.get().setPassword(member.getPassword());
-           curr.get().setInterest(member.getInterest());
+           curr.get().setInterests(member.getInterests());
            memberRepo.save(curr.get());
            return curr.get();
        }
