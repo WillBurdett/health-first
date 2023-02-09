@@ -29,7 +29,7 @@ public class WelcomeService {
         System.out.println(member);
         List<ClassInfo> relevantClasses;
         try {
-            relevantClasses = getRelevantClasses(member.getInterest());
+            relevantClasses = getRelevantClasses(member.getInterests());
         } catch (Exception e){
             System.out.println(e.getMessage()+ "\n" + e.getCause() + "\n" + e.getLocalizedMessage());
             throw new Exception(e.getMessage());
@@ -40,9 +40,9 @@ public class WelcomeService {
         return relevantClasses;
     }
 
-    public List<ClassInfo> getRelevantClasses(Interest interest){
+    public List<ClassInfo> getRelevantClasses(List<Interest> interests){
         // GETs all relevant classes from class-service based on singular interest
-       List <ClassInfo> relevantClasses = classesServiceCalls.getRelevantClassesFromClassesService(interest);
+       List <ClassInfo> relevantClasses = classesServiceCalls.getRelevantClassesFromClassesService(interests);
         return relevantClasses;
     }
 

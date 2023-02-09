@@ -34,7 +34,7 @@ public class WelcomeServiceTest {
   @MockBean
   EmailServiceCalls emailServiceCalls;
 
-  private List<ClassInfo> allClasses = List.of(
+  private final List<ClassInfo> ALL_CLASSES = List.of(
       new ClassInfo(
           1L, "Rhythmic Aerobics",
           "Mr.Tickles", Interest.DANCE,
@@ -55,24 +55,24 @@ public class WelcomeServiceTest {
   @Test
   public void getRelevantClasses_HappyPath() {
     // given
-    Interest interest = Interest.DANCE;
-    when(classesServiceCalls.getRelevantClassesFromClassesService(interest)).thenReturn(List.of(allClasses.get(0)));
+    List<Interest> interests = List.of(Interest.DANCE);
+    when(classesServiceCalls.getRelevantClassesFromClassesService(interests)).thenReturn(List.of(ALL_CLASSES.get(0)));
 
     // when
-    List<ClassInfo> actual = service.getRelevantClasses(interest);
+    List<ClassInfo> actual = service.getRelevantClasses(interests);
 
     // then
     assertThat(actual.size()).isEqualTo(1);
-    assertThat(actual.get(0)).isEqualTo(allClasses.get(0));
-    verify(classesServiceCalls, times(1)).getRelevantClassesFromClassesService(interest);
+    assertThat(actual.get(0)).isEqualTo(ALL_CLASSES.get(0));
+    verify(classesServiceCalls, times(1)).getRelevantClassesFromClassesService(interests);
   }
 
   @Test
   public void handleNewMember_HappyPath() throws Exception {
     // given
-    Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", Interest.DANCE);
-    List<ClassInfo> relevantClasses = List.of(allClasses.get(0));
-    when(classesServiceCalls.getRelevantClassesFromClassesService(bob.getInterest())).thenReturn(relevantClasses);
+    Member bob = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass123", List.of(Interest.DANCE));
+    List<ClassInfo> relevantClasses = List.of(ALL_CLASSES.get(0));
+    when(classesServiceCalls.getRelevantClassesFromClassesService(bob.getInterests())).thenReturn(relevantClasses);
 
     // when
     service.handleNewMember(bob);

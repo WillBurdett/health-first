@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ClassesServiceCalls {
 
   @GetMapping(value = "/classes/relevant/{classType}", produces = "application/json")
-  List<ClassInfo> getRelevantClassesFromClassesService(@PathVariable("classType") Interest classType);
+  List<ClassInfo> getRelevantClassesFromClassesService(@PathVariable("classType") List<Interest> classType);
 }

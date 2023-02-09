@@ -6,6 +6,7 @@ import com.healthfirst.welcomeservice.controllers.WelcomeController;
 import com.healthfirst.welcomeservice.enums.Gender;
 import com.healthfirst.welcomeservice.enums.Interest;
 import com.healthfirst.welcomeservice.models.Member;
+import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -32,7 +33,7 @@ public class MemberValidations {
   @Test
   public void firstName_LeftBlankCausesError(){
     Member member = new Member(1L, "", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
@@ -40,7 +41,7 @@ public class MemberValidations {
   @Test
   public void secondName_LeftBlankCausesError(){
     Member member = new Member(1L, "bob", "", 21, Gender.MALE, "bob@gmail.com", "pass1234",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
@@ -48,7 +49,7 @@ public class MemberValidations {
   @Test
   public void age_LessThan18CausesError(){
     Member member = new Member(1L, "bob", "marley", 5, Gender.MALE, "bob@gmail.com", "pass1234",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
@@ -56,7 +57,7 @@ public class MemberValidations {
   @Test
   public void age_MoreThan130CausesError(){
     Member member = new Member(1L, "bob", "marley", 131, Gender.MALE, "bob@gmail.com", "pass1234",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
@@ -64,7 +65,7 @@ public class MemberValidations {
   @Test
   public void email_InvalidEmailCausesError(){
     Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass1234",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }
@@ -72,7 +73,7 @@ public class MemberValidations {
   @Test
   public void password_PasswordLessThan8CharactersCausesError(){
     Member member = new Member(1L, "bob", "marley", 21, Gender.MALE, "gmail.com", "pass",
-        Interest.DANCE);
+        List.of(Interest.DANCE));
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
     assertFalse(violations.isEmpty());
   }

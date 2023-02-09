@@ -27,7 +27,7 @@ public class Member {
     private String email;
     @Size(min = 8)
     private String password;
-    private Interest interest;
+    private List<Interest> interests;
 }
 
 

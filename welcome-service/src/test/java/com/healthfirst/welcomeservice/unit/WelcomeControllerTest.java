@@ -44,10 +44,10 @@ public class WelcomeControllerTest {
 
   private  static final String CLASS_TIME = "2023-02-02T14:00:00";
   private static final Member MEMBER = new Member(1L, "bob", "marley", 21, Gender.MALE, "bob@gmail.com", "pass1234",
-      Interest.DANCE);
+      List.of(Interest.DANCE));
   private static final Member INVALID_MEMBER = new Member(1L, "", "marley", 21, Gender.MALE, "bob@gmail.com",
       "pass1234",
-      Interest.DANCE);
+      List.of(Interest.DANCE));
   private static final List<ClassInfo> CLASS_INFO_LIST = List.of(
       new ClassInfo(
         1L, "Rhythmic Aerobics",
