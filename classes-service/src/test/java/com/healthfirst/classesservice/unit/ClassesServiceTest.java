@@ -29,18 +29,19 @@ public class ClassesServiceTest {
   @MockBean
   ClassesRepo repo;
 
+  private final ClassInfo CLASSINFO =  new ClassInfo(
+      1L,
+      "Beginners Swimming",
+      "David Schwimmer",
+      ClassType.SWIMMING,
+      LocalDateTime.of(2024, 2, 2, 2,2));
+
+
   @Test
   public void getAllClasses_HappyPath() {
     // given
-    ClassInfo classInfo =  new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-
-    when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
-    List<ClassInfo> expected = Arrays.asList(classInfo);
+    when(repo.findAll()).thenReturn(Arrays.asList(CLASSINFO));
+    List<ClassInfo> expected = Arrays.asList(CLASSINFO);
 
     // when
     List<ClassInfo> actual = service.getAllClasses();
@@ -53,38 +54,23 @@ public class ClassesServiceTest {
   @Test
   public void getClassById_HappyPath() {
     // given
-    ClassInfo classInfo =  new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-    when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
-
+    when(repo.findAll()).thenReturn(Arrays.asList(CLASSINFO));
     // when
     ClassInfo actual = service.getClassById(1L);
 
     // then
-    ClassInfo expected = classInfo;
+    ClassInfo expected = CLASSINFO;
     verify(repo, times(1)).findAll();
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
   public void addClass_HappyPath() {
-    // given
-    ClassInfo classInfo =  new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-
     // when
-    service.addClass(classInfo);
+    service.addClass(CLASSINFO);
 
     // then
-    verify(repo, times(1)).save(classInfo);
+    verify(repo, times(1)).save(CLASSINFO);
   }
 
   @Test
@@ -101,14 +87,8 @@ public class ClassesServiceTest {
 
   @Test
   public void updateClass_HappyPath() {
-    // given
-    ClassInfo originalClassInfo =  new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-    when(repo.findAll()).thenReturn(List.of(originalClassInfo));
+    //given
+    when(repo.findAll()).thenReturn(List.of(CLASSINFO));
 
     ClassInfo updatedClassInfo =  new ClassInfo(
         1L,
@@ -127,18 +107,11 @@ public class ClassesServiceTest {
 
   @Test
   public void getRelevantClasses_HappyPath() {
-    // given
-    ClassInfo classInfo =  new ClassInfo(
-        1L,
-        "Beginners Swimming",
-        "David Schwimmer",
-        ClassType.SWIMMING,
-        LocalDateTime.of(2024, 2, 2, 2,2));
-    when(repo.findAll()).thenReturn(Arrays.asList(classInfo));
+    when(repo.findAll()).thenReturn(Arrays.asList(CLASSINFO));
 
     // when
     List<ClassInfo> actual = service.getRelevantClasses(List.of(ClassType.SWIMMING));
-    List<ClassInfo> expected = Arrays.asList(classInfo);
+    List<ClassInfo> expected = Arrays.asList(CLASSINFO);
 
     // then
     verify(repo, times(1)).findAll();
