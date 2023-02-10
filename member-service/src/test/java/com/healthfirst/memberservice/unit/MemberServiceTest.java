@@ -44,7 +44,27 @@ public class MemberServiceTest {
         21,
         Gender.MALE,
         "bob@gmail.com",
-        "pass123",
+        "pass1234",
+        List.of(Interest.ATHLETICS));
+
+    private final Member BOB_UPDATE = new Member(
+        1L,
+        "bob",
+        "marley",
+        21,
+        Gender.MALE,
+        "sally@gmail.com",
+        "pass1234",
+        List.of(Interest.ATHLETICS));
+
+    private final Member SALLY = new Member(
+        2L,
+        "sally",
+        "brown",
+        21,
+        Gender.FEMALE,
+        "sally@gmail.com",
+        "pass1234",
         List.of(Interest.ATHLETICS));
 
     @Test
@@ -155,5 +175,19 @@ public class MemberServiceTest {
         }).isInstanceOf(MemberNotFoundException.class)
                 .hasMessage("Member not found with id " + idThatDoesNotExist);
         verify(repo, times(0)).save(BOB);
+    }
+
+    @Test
+    public void updateMember_ThrowsExceptionWhenMemberEmailAlreadyExists() {
+        // given
+        when(repo.findAll()).thenReturn(List.of(SALLY, BOB));
+
+        // when
+        assertThatThrownBy(() -> {
+            service.updateMember(1L, BOB_UPDATE);
+            // then
+        }).isInstanceOf(MemberWithEmailAlreadyExists.class)
+            .hasMessage("member with the email " + BOB_UPDATE.getEmail() + " already exists");
+        verify(repo, times(0)).save(BOB_UPDATE);
     }
 }

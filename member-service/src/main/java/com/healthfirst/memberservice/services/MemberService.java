@@ -54,6 +54,14 @@ public class MemberService {
     }
 
     public Member updateMember(Long id, Member member) {
+        Optional<Member> optionalMember =
+            memberRepo.findAll()
+                .stream()
+                .findFirst()
+                .filter(m -> m.getEmail().equals(member.getEmail()) && m.getId() != id);
+        if (optionalMember.isPresent()){
+            throw new MemberWithEmailAlreadyExists("member with the email " + member.getEmail() + " already exists");
+        }
        Optional<Member> curr = memberRepo.findAll().stream().filter(m -> m.getId() == id).findFirst();
        if (curr.isPresent()){
            curr.get().setFirstName(member.getFirstName());
