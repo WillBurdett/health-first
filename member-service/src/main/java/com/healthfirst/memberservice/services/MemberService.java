@@ -44,7 +44,6 @@ public class MemberService {
             throw new MemberWithEmailAlreadyExists("member with the email " + member.getEmail() + " already exists");
         }
         Member savedMember = memberRepo.save(member);
-        // TODO: 16/01/2023 send Member to welcome-service via POST method
         welcomeServiceCalls.sendNewMemberToWelcomeService(member);
         return savedMember;
     }
