@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.services;
 
+import com.healthfirst.memberservice.exceptions.MemberWithEmailAlreadyExists;
 import com.healthfirst.memberservice.feign.WelcomeServiceCalls;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
@@ -37,6 +38,11 @@ public class MemberService {
     }
 
     public Member addMember(Member member) {
+        Optional<Member> optionalMember =
+            memberRepo.findAll().stream().findFirst().filter(m -> m.getEmail().equals(member.getEmail()));
+        if (optionalMember.isPresent()){
+            throw new MemberWithEmailAlreadyExists("member with the email " + member.getEmail() + " already exists");
+        }
         Member savedMember = memberRepo.save(member);
         // TODO: 16/01/2023 send Member to welcome-service via POST method
         welcomeServiceCalls.sendNewMemberToWelcomeService(member);

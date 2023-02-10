@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.unit;
 
+import com.healthfirst.memberservice.exceptions.MemberWithEmailAlreadyExists;
 import com.healthfirst.memberservice.feign.WelcomeServiceCalls;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.exceptions.MemberNotFoundException;
@@ -99,6 +100,21 @@ public class MemberServiceTest {
     }
 
     @Test
+    public void addMember_ThrowsExceptionWhenMemberEmailAlreadyExists() {
+        // given
+        Long idThatDoesNotExist = 1L;
+        when(repo.findAll()).thenReturn(List.of(BOB));
+
+        // when
+        assertThatThrownBy(() -> {
+            service.addMember(BOB);
+            // then
+        }).isInstanceOf(MemberWithEmailAlreadyExists.class)
+            .hasMessage("member with the email " + BOB.getEmail() + " already exists");
+        verify(repo, times(0)).save(BOB);
+    }
+
+    @Test
     public void deleteMember_DeletesMemberWhenExists() {
         // given
         Long id = 1L;
@@ -138,5 +154,6 @@ public class MemberServiceTest {
             // then
         }).isInstanceOf(MemberNotFoundException.class)
                 .hasMessage("Member not found with id " + idThatDoesNotExist);
+        verify(repo, times(0)).save(BOB);
     }
 }
