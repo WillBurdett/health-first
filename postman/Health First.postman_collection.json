@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interest\": \"TEAMSPORTS\"\n}",
+							"raw": "{\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interests\": [\"TEAMSPORTS\", \"SWIMMING\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interest\": \"TEAMSPORTS\"\n}",
+							"raw": "{\n    \"firstName\": \"leo\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interests\": [\"SWIMMING\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -137,7 +137,7 @@
 			"name": "Welcome-Service",
 			"item": [
 				{
-					"name": "Get Relevant",
+					"name": "Handle new Member",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -205,45 +205,6 @@
 							"port": "8082",
 							"path": [
 								"hydrate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get relevant classes",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/xml",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2022-02-02T02:02:00\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8082/classes/relevant/teamsports",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"classes",
-								"relevant",
-								"teamsports"
 							]
 						}
 					},
@@ -371,31 +332,6 @@
 			"name": "Email-Service",
 			"item": [
 				{
-					"name": "Get ClassInfo",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8088/hello",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8088",
-							"path": [
-								"hello"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Email Classes",
 					"request": {
 						"method": "POST",
@@ -422,6 +358,71 @@
 								"will",
 								"email",
 								"will@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wiremock",
+			"item": [
+				{
+					"name": "Hello World Stub",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request\": {\n        \"method\": \"GET\",\n        \"url\": \"/hello\"\n    },\n    \"response\": {\n        \"status\": 200,\n        \"body\": \"Hello world!\",\n        \"headers\": {\n            \"Content-Type\": \"text/plain\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8300/__admin/mappings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8300",
+							"path": [
+								"__admin",
+								"mappings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hello World Call",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request\": {\n        \"method\": \"GET\",\n        \"url\": \"/hello\"\n    },\n    \"response\": {\n        \"status\": 200,\n        \"body\": \"Hello world!\",\n        \"headers\": {\n            \"Content-Type\": \"text/plain\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8300/hello",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8300",
+							"path": [
+								"hello"
 							]
 						}
 					},
