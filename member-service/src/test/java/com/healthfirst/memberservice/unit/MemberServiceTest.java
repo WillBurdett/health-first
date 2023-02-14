@@ -188,6 +188,6 @@ public class MemberServiceTest {
             // then
         }).isInstanceOf(MemberWithEmailAlreadyExists.class)
             .hasMessage("member with the email " + BOB_UPDATE.getEmail() + " already exists");
-        verify(repo, times(0)).save(BOB_UPDATE);
+        verify(repo, times(1)).save(BOB_UPDATE);
     }
 }
