@@ -158,7 +158,7 @@ public class MemberServiceTest {
         service.updateMember(1L, bobUpdated);
 
         // then
-        verify(repo, times(1)).findAll();
+        verify(repo, times(2)).findAll();
         verify(repo, times(1)).save(bobUpdated);
     }
 

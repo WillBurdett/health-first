@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: com.healthfirst.memberservice.unit.MemberServiceTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.399 s <<< FAILURE! - in com.healthfirst.memberservice.unit.MemberServiceTest
+updateMember_UpdatesWhenMemberValid  Time elapsed: 0.01 s  <<< FAILURE!
+org.mockito.exceptions.verification.TooManyActualInvocations: 
+
+com.healthfirst.memberservice.repositories.MemberRepo#0 bean.findAll();
+Wanted 1 time:
+-> at com.healthfirst.memberservice.unit.MemberServiceTest.updateMember_UpdatesWhenMemberValid(MemberServiceTest.java:161)
+But was 2 times:
+-> at com.healthfirst.memberservice.services.MemberService.updateMember(MemberService.java:57)
+-> at com.healthfirst.memberservice.services.MemberService.updateMember(MemberService.java:64)
+
+
+	at com.healthfirst.memberservice.unit.MemberServiceTest.updateMember_UpdatesWhenMemberValid(MemberServiceTest.java:161)
+
