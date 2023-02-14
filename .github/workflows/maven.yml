@@ -27,8 +27,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Build member-service with Maven
       working-directory: ./member-service
       run: mvn -B package --file pom.xml
+    - name: Build welcome-service with Maven
+      working-directory: ./welcome-service
+      run: mvn -B package --file pom.xml  
+    - name: Build email-service with Maven
+      working-directory: ./email-service
+      run: mvn -B package --file pom.xml  
 
 
