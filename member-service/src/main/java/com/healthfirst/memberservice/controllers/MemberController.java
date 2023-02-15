@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.controllers;
 
+import com.healthfirst.memberservice.configuration.Configuration;
 import com.healthfirst.memberservice.models.Member;
 import com.healthfirst.memberservice.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,21 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @Autowired
+    private Configuration configuration;
+
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    /**
+     * This is simply to test config-server implementation and can be deleted after completion
+     */
+    @GetMapping("/config-test")
+    public String getCompanyEmail(){
+        return configuration.getCompanyEmail();
     }
 
     @GetMapping("members")
