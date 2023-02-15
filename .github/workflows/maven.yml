@@ -36,5 +36,8 @@ jobs:
     - name: Build email-service with Maven
       working-directory: ./email-service
       run: mvn -B package --file pom.xml  
+    - name: Build classes-service with Maven
+      working-directory: ./classes-service
+      run: mvn -B package --file pom.xml   
 
 
