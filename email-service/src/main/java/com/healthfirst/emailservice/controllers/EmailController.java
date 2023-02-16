@@ -24,6 +24,11 @@ public class EmailController {
     this.service = service;
   }
 
+  @GetMapping(path = "config-test")
+  public String getCompanyEmail(){
+    return service.getCompanyEmail();
+  }
+
   @PostMapping(path = "/email/name/{name}/email/{email}")
   public void handleClassesToEmail(
       @RequestBody List<ClassInfo> classes,
