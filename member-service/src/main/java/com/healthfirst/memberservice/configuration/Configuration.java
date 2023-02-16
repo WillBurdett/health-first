@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("health-first")
+@ConfigurationProperties("member-service")
 public class Configuration {
 
   private String companyEmail;
