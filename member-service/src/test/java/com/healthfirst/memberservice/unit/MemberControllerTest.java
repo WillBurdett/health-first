@@ -1,5 +1,6 @@
 package com.healthfirst.memberservice.unit;
 
+import com.healthfirst.memberservice.configuration.Configuration;
 import com.healthfirst.memberservice.controllers.MemberController;
 import com.healthfirst.memberservice.enums.Gender;
 import com.healthfirst.memberservice.enums.Interest;
@@ -37,6 +38,9 @@ public class MemberControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private Configuration configuration;
 
     @MockBean
     private MemberService service;
