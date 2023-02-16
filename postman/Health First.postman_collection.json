@@ -362,6 +362,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get company email from config server",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8100/config-test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"config-test"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
