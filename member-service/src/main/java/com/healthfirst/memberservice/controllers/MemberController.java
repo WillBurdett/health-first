@@ -19,12 +19,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @Autowired
-    private Configuration configuration;
+    private final Configuration configuration;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, Configuration configuration) {
         this.memberService = memberService;
+        this.configuration = configuration;
     }
 
     /**
