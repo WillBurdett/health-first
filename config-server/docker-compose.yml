@@ -2,5 +2,6 @@ version: "3"
 services:
   config-server:
     image: config-server:latest
+    restart: unless-stopped
     ports:
       - "8083:8083"
