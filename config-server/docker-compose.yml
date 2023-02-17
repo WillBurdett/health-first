@@ -1,0 +1,6 @@
+version: "3"
+services:
+  config-server:
+    image: config-server:latest
+    ports:
+      - "8083:8083"
