@@ -39,11 +39,9 @@ public class EmailService {
   private final Configuration configuration;
   private final Gmail gmailService;
   private static final String WELCOME_SUBJECT = "Welcome to Health First!";
-  private static final String HEALTH_EMAIL = "health.first.app.v1@gmail.com";
 
   @Autowired
-  public EmailService(Configuration configuration,
-      Configuration configuration1) throws IOException, GeneralSecurityException {
+  public EmailService(Configuration configuration) throws IOException, GeneralSecurityException {
     this.configuration = configuration;
     final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
     GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -59,9 +57,9 @@ public class EmailService {
   public void handleWelcomeEmailToNewMembers(List<ClassInfo> classes, String name, String email)
       throws MessagingException, IOException {
     /**
-     * HEALTH_FIRST_EMAIL will be replaced by 'email' in production
+     * HEALTH_FIRST_EMAIL (configuration.getCompanyEmail()) will be replaced by 'email' in production
      */
-    sendMail(WELCOME_SUBJECT, new Email(name, email, classes).formatEmail(), HEALTH_EMAIL);
+    sendMail(WELCOME_SUBJECT, new Email(name, email, classes).formatEmail(), configuration.getCompanyEmail());
   }
 
   public void sendMail(String subject, String message, String memberEmail)
@@ -70,7 +68,7 @@ public class EmailService {
     Properties props = new Properties();
     Session session = Session.getDefaultInstance(props, null);
     MimeMessage email = new MimeMessage(session);
-    email.setFrom(new InternetAddress(HEALTH_EMAIL));
+    email.setFrom(new InternetAddress(configuration.getCompanyEmail()));
     email.addRecipient(javax.mail.Message.RecipientType.TO,
         new InternetAddress(memberEmail));
     email.setSubject(subject);
