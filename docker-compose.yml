@@ -4,7 +4,7 @@ services:
     image: config-server:latest
     restart: unless-stopped
     ports:
-      - "8083:8083"
+      - "8083:8083" 
 
   classes-service:
     image: classes-service:latest
@@ -67,7 +67,10 @@ services:
   email-service:
     image: email-service:latest
     ports:
-      - "8100:8100"    
+      - "8100:8100"   
+    # environment:
+    #   - "SPRING_PROFILES_ACTIVE=dev" 
+    #   - "SPRING_CLOUD_CONFIG_PROFILE=dev"
 
 volumes:
   data: {}
