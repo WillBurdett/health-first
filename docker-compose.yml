@@ -66,11 +66,9 @@ services:
 
   email-service:
     image: email-service:latest
+    restart: unless-stopped
     ports:
       - "8100:8100"   
-    # environment:
-    #   - "SPRING_PROFILES_ACTIVE=dev" 
-    #   - "SPRING_CLOUD_CONFIG_PROFILE=dev"
 
 volumes:
   data: {}

@@ -24,7 +24,7 @@ public class EmailController {
     this.service = service;
   }
 
-  @GetMapping(path = "config-test")
+  @GetMapping(path = "/config-test")
   public String getCompanyEmail(){
     return service.getCompanyEmail();
   }
