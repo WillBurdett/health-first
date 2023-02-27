@@ -14,7 +14,6 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
-import com.healthfirst.emailservice.configuration.Configuration;
 import com.healthfirst.emailservice.models.ClassInfo;
 import com.healthfirst.emailservice.models.Email;
 import java.io.ByteArrayOutputStream;
@@ -36,13 +35,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-  private final Configuration configuration;
+  //private final Configuration configuration;
+  private final String EMAIL = "health.first.app.v1@gmail.com";
   private final Gmail gmailService;
   private static final String WELCOME_SUBJECT = "Welcome to Health First!";
 
   @Autowired
-  public EmailService(Configuration configuration) throws IOException, GeneralSecurityException {
-    this.configuration = configuration;
+  public EmailService() throws IOException, GeneralSecurityException {
     final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
     GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
     gmailService = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport, jsonFactory))
@@ -51,7 +50,7 @@ public class EmailService {
   }
 
   public String getCompanyEmail(){
-    return configuration.getCompanyEmail();
+    return EMAIL;
   }
 
   public void handleWelcomeEmailToNewMembers(List<ClassInfo> classes, String name, String email)
@@ -59,7 +58,7 @@ public class EmailService {
     /**
      * HEALTH_FIRST_EMAIL (configuration.getCompanyEmail()) will be replaced by 'email' in production
      */
-    sendMail(WELCOME_SUBJECT, new Email(name, email, classes).formatEmail(), configuration.getCompanyEmail());
+    sendMail(WELCOME_SUBJECT, new Email(name, email, classes).formatEmail(), EMAIL);
   }
 
   public void sendMail(String subject, String message, String memberEmail)
@@ -68,7 +67,7 @@ public class EmailService {
     Properties props = new Properties();
     Session session = Session.getDefaultInstance(props, null);
     MimeMessage email = new MimeMessage(session);
-    email.setFrom(new InternetAddress(configuration.getCompanyEmail()));
+    email.setFrom(new InternetAddress(EMAIL));
     email.addRecipient(javax.mail.Message.RecipientType.TO,
         new InternetAddress(memberEmail));
     email.setSubject(subject);
@@ -102,8 +101,9 @@ public class EmailService {
       throws IOException {
     // Load client secrets.
     GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory,
-        new InputStreamReader(EmailService.class.getResourceAsStream("/secret/client_secret_1072835117677"
-            + "-mnc6u244hdr86fq8p3vu59uj35hlkp1f.apps.googleusercontent.com.json")));
+        new InputStreamReader(EmailService.class
+            .getResourceAsStream("/secret/"
+            + "client_secret_1072835117677-8t15nhdv0er7bo60vin4ca8flmpau9h9.apps.googleusercontent.com.json")));
 
     // Build flow and trigger user authorization request.
     GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
