@@ -3,6 +3,8 @@ services:
   config-server:
     image: config-server:latest
     restart: unless-stopped
+    healthcheck:
+      test: curl -f http://config-server:8083/member-service/default
     ports:
       - "8083:8083" 
 
@@ -50,13 +52,18 @@ services:
     ports:
       - "3308:3306"
     restart: unless-stopped
+    healthcheck:
+      test: curl -f http://memberdb:3306/members
     volumes:
       - data:/data
   
   member-service:
     image: member-service:latest
     depends_on:
-      - memberdb
+      config-server:
+        condition: service_healthy
+      memberdb:
+        condition: service_healthy
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -67,6 +74,9 @@ services:
   email-service:
     image: email-service:latest
     restart: unless-stopped
+    depends_on:
+      config-server:
+        condition: service_healthy
     ports:
       - "8100:8100"   
 
