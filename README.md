@@ -15,7 +15,7 @@ If you have these credentials, you must add them here for email automation.
 Navigate to the 'postman' directory and copy all the text.  
 Then head to Postman and import this collection by pasting as raw text.
 
-## Service
+## Services
 | Name              | Port | Description                          |
 | -------------    |--------------|--------------------------------------|
 | member-service         | 8080          | CRUD operations for members, persisting data in a MySQL DB |
