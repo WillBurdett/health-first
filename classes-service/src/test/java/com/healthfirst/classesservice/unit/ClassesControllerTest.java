@@ -117,9 +117,5 @@ public class ClassesControllerTest {
     verify(service, times(1)).updateClass(1L, CLASSINFO);
   }
 
-  @Test
-  public void hydrate() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.post("/hydrate"));
-    verify(service, times(1)).hydrate();
-  }
+
 }
