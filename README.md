@@ -2,7 +2,7 @@
 
 
 ## Getting Started   
-Make sure Docker is up and running on your local machine.  
+Make sure Docker is up and running and Maven is installed on your local machine.  
 From the project root directory use commands:  
 - 'make deploy' to start up to app
 - 'make purge' to stop the app and remove images and jars created  
