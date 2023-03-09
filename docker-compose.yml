@@ -1,12 +1,21 @@
 version: "3.8"
 services:
+  naming-server:
+    image: naming-server:latest
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: curl -f http://naming-server:8761
+
   config-server:
     image: config-server:latest
     restart: unless-stopped
     healthcheck:
       test: curl -f http://config-server:8083/member-service/default
     ports:
-      - "8083:8083" 
+      - "8083:8083"
+    depends_on:
+      - mongodb 
 
   classes-service:
     image: classes-service:latest
@@ -14,6 +23,15 @@ services:
       - mongodb
     ports:
       - "8082:8082"
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: naming-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka 
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      SPRING_DATA_MONGODB_USERNAME: rootuser
+      SPRING_DATA_MONGODB_PASSWORD: rootpass
+      SPRING_DATA_MONGODB_DATABASE: classinfodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_HOST: mongodb 
   
   mongodb:
     image: mongo
@@ -41,6 +59,9 @@ services:
     image: welcome-service:latest
     ports:
       - "8110:8110"
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: naming-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka   
 
   memberdb:
     platform: linux/x86_64
@@ -70,6 +91,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://memberdb:3306/memberdb?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root    
+      EUREKA_INSTANCE_HOSTNAME: naming-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka   
 
   email-service:
     image: email-service:latest
@@ -81,6 +104,8 @@ services:
       - "8100:8100"
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8083  
+      EUREKA_INSTANCE_HOSTNAME: naming-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka   
 
 volumes:
   data: {}

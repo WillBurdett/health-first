@@ -1,0 +1,8 @@
+version: "3"
+services:
+  naming-server:
+    image: naming-server:latest
+    ports:
+      - "8761:8761"
+
+

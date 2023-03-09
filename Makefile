@@ -6,6 +6,14 @@ deploy-member-service:
 	cd member-service/src/main/resources/scripts; ./build.sh; docker-compose up
 .PHONY: deploy-member-service
 
+build-naming-server:
+	cd naming-server/src/main/resources/scripts; ./build.sh
+.PHONY: build-naming-server
+
+deploy-naming-server:
+	cd naming-server/src/main/resources/scripts; ./build.sh; docker-compose up
+.PHONY: deploy-naming-server
+
 build-config-server:
 	cd config-server/src/main/resources/scripts; ./build.sh
 .PHONY: build-config-server
@@ -42,6 +50,10 @@ purge-member-service:
 	cd member-service/src/main/resources/scripts; ./purge.sh
 .PHONY: purge-member-service
 
+purge-naming-server:
+	cd naming-server/src/main/resources/scripts; ./purge.sh
+.PHONY: purge-naming-server
+
 purge-config-server:
 	cd config-server/src/main/resources/scripts; ./purge.sh
 .PHONY: purge-config-server
@@ -66,6 +78,6 @@ purge-services:
 	docker-compose down
 .PHONY: purge-services
 
-deploy: build-config-server build-member-service build-welcome-service build-classes-service build-email-service deploy-services
+deploy: build-config-server build-member-service build-naming-server build-welcome-service build-classes-service build-email-service deploy-services
 
-purge: purge-services purge-config-server purge-member-service purge-welcome-service purge-classes-service purge-email-service
+purge: purge-services purge-config-server purge-member-service purge-naming-server purge-welcome-service purge-classes-service purge-email-service
