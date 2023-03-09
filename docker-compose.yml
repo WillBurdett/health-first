@@ -78,7 +78,9 @@ services:
       config-server:
         condition: service_healthy
     ports:
-      - "8100:8100"   
+      - "8100:8100"
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8083  
 
 volumes:
   data: {}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient (value = "classes-service", url = "http://classes-service:8082")
+@FeignClient (name = "classes-service")
 public interface ClassesServiceCalls {
 
   @PostMapping(value = "/classes/relevant", produces = "application/json")

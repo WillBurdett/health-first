@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "email-service", url = "http://email-service:8100")
+@FeignClient(name = "email-service")
 public interface EmailServiceCalls {
 
   @PostMapping(value = "/email/name/{name}/email/{email}", produces = "application/json")

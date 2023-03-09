@@ -105,7 +105,7 @@ public class EmailService {
     GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory,
         new InputStreamReader(EmailService.class
             .getResourceAsStream("/secret/"
-            + "client_secret_1072835117677-8t15nhdv0er7bo60vin4ca8flmpau9h9.apps.googleusercontent.com.json")));
+            + "client_secret_1072835117677-aeqnt64f110sje4jsslq64l24jlr8gaf.apps.googleusercontent.com.json")));
 
     // Build flow and trigger user authorization request.
     GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(

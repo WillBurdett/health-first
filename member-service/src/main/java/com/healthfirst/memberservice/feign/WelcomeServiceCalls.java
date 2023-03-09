@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient (value = "welcome-service", url = "http://welcome-service:8110")
+@FeignClient (name = "welcome-service")
 public interface WelcomeServiceCalls {
 
   @PostMapping(value = "/welcome")
