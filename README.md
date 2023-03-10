@@ -2,13 +2,24 @@
 
 
 ## Getting Started   
-Make sure Docker is up and running and Maven is installed on your local machine.  
+Please ensure Maven is installed on your local machine.  
+
+## Quick Start with Docker
+Make sure Docker is up and running and Make is installed on your local machine.  
 From the project root directory use commands:  
 - 'make deploy' to start up to app
 - 'make purge' to stop the app and remove images and jars created  
 
-In the output there will be a link to authenticate the Health First gmail.  
-If you have these credentials, you must add them here for email automation.
+## Notes for running in Intellij
+
+Use the command 'mvn spring-boot:run' in the directory of the service you'd like to start:
+- 'naming-server' must be started up first
+- 'config-server' must be started next
+- Switch the scope of the 'classes-service' dependency 'de.flapdoodle.embed.mongo' from 'test' to 'runtime'
+
+## Email-service authentication
+In the output to email-service there will be a link to authenticate the Health First gmail.  
+If you have these credentials, click on the link and follow the on-screen instructions. You must add these credentials for email automation.
 
 ## Testing API endpoints
 
@@ -23,6 +34,7 @@ Then head to Postman and import this collection by pasting as raw text.
 | classes-service           | 8082         | CRUD operations for classes, persisting data in a Mongo DB                   |
 | email-service   | 8100          | Handles all email functionality                  |
 | config-server   | 8083       | Centralises each microservice's application properties                  |
+| naming-server   | 8761       | Eureka server for service discovery and load-balancing                  |
 
 ## Stores and Utilities
 | Name              | Port | Description                          |
