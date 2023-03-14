@@ -130,6 +130,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Dummy request for config-server",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -442,6 +450,44 @@
 							"port": "8300",
 							"path": [
 								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Config-Server",
+			"item": [
+				{
+					"name": "Default member-service config",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Api-Gateway",
+			"item": [
+				{
+					"name": "All Classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8765/classes-service/classes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"classes-service",
+								"classes"
 							]
 						}
 					},
