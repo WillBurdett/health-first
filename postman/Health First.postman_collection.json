@@ -135,7 +135,18 @@
 					"name": "Dummy request for config-server",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/config-test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"config-test"
+							]
+						}
 					},
 					"response": []
 				}
@@ -190,34 +201,6 @@
 		{
 			"name": "Classes-Service",
 			"item": [
-				{
-					"name": "Hydrate Database",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2022-02-02T02:02:00\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8082/hydrate",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"hydrate"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "All Classes",
 					"request": {
@@ -474,24 +457,252 @@
 			"name": "Api-Gateway",
 			"item": [
 				{
-					"name": "All Classes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8765/classes-service/classes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8765",
-							"path": [
-								"classes-service",
-								"classes"
-							]
+					"name": "Member",
+					"item": [
+						{
+							"name": "All Members",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/members",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Member by Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8765/members/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"members",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Member",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"lionel\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interests\": [\"TEAMSPORTS\", \"SWIMMING\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/members",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Member by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"leo\",\n    \"lastName\": \"messi\",\n    \"age\": 36,\n    \"gender\": \"MALE\",\n    \"email\": \"messi@gmail.com\",\n    \"password\": \"football123\",\n    \"interests\": [\"SWIMMING\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/members/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"members",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Member by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/members/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"members",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Classes",
+					"item": [
+						{
+							"name": "All Classes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/classes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"classes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Class by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/classes/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"classes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new class",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"className\": \"Jumping Jacks\",\n  \"instructor\": \"Another America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2024-02-02T02:02:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/classes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"classes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update class",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"className\": \"Lazy-ups\",\n  \"instructor\": \"Captain America\",\n  \"classType\": \"ATHLETICS\",\n  \"classTime\": \"2024-02-02T02:02:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/classes/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"classes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Class by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/classes/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"classes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
