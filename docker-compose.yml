@@ -105,7 +105,18 @@ services:
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8083  
       EUREKA_INSTANCE_HOSTNAME: naming-server
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka   
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+
+  api-gateway:
+    image: api-gateway:latest
+    depends_on:
+      naming-server:
+        condition: service_healthy
+    ports:
+      - "8765:8765"
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: naming-server
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka         
 
 volumes:
   data: {}
