@@ -6,6 +6,14 @@ deploy-member-service:
 	cd member-service/src/main/resources/scripts; ./build.sh; docker-compose up
 .PHONY: deploy-member-service
 
+build-api-gateway:
+	cd api-gateway/src/main/resources/scripts; ./build.sh
+.PHONY: api-gateway
+
+deploy-api-gateway:
+	cd api-gateway/src/main/resources/scripts; ./build.sh; docker-compose up
+.PHONY: deploy-api-gateway
+
 build-naming-server:
 	cd naming-server/src/main/resources/scripts; ./build.sh
 .PHONY: build-naming-server
@@ -70,6 +78,10 @@ purge-email-service:
 	cd email-service/src/main/resources/scripts; ./purge.sh
 .PHONY: purge-email-service
 
+purge-api-gateway:
+	cd api-gateway/src/main/resources/scripts; ./purge.sh
+.PHONY: purge-api-gateway
+
 deploy-services:
 	docker-compose up
 .PHONY: deploy-services
@@ -78,6 +90,6 @@ purge-services:
 	docker-compose down
 .PHONY: purge-services
 
-deploy: build-config-server build-member-service build-naming-server build-welcome-service build-classes-service build-email-service deploy-services
+deploy: build-config-server build-member-service build-naming-server build-welcome-service build-classes-service build-email-service build-api-gateway deploy-services
 
-purge: purge-services purge-config-server purge-member-service purge-naming-server purge-welcome-service purge-classes-service purge-email-service
+purge: purge-services purge-config-server purge-member-service purge-naming-server purge-welcome-service purge-classes-service purge-email-service purge-api-gateway

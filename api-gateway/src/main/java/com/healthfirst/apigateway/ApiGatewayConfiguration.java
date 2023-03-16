@@ -18,13 +18,13 @@ public class ApiGatewayConfiguration {
     return builder.routes()
         /**
          * '/get' is being left as an example of parsing for future development
-         **/
         .route(p -> p
             .path("/get")
             .filters(f -> f
                 .addRequestHeader("MyHeader", "MyURI")
                 .addRequestParameter("Param", "MyValue"))
             .uri("http://httpbin.org:80"))
+         **/
         .route(p -> p.path("/classes/**")
             .uri("lb://classes-service")
             )
