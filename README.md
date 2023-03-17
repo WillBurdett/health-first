@@ -35,6 +35,7 @@ Then head to Postman and import this collection by pasting as raw text.
 | email-service   | 8100          | Handles all email functionality                  |
 | config-server   | 8083       | Centralises each microservice's application properties                  |
 | naming-server   | 8761       | Eureka server for service discovery and load-balancing                  |
+| api-gateway   | 8765       | API gateway which routes requests to the correct service based on the URL                 |
 
 ## Stores and Utilities
 | Name              | Port | Description                          |
