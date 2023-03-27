@@ -90,9 +90,13 @@ services:
     restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://memberdb:3306/memberdb?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_DATABASEPLATFORM: org.hibernate.dialect.MySQL5InnoDBDialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
       SPRING_DATASOURCE_USERNAME: root    
       EUREKA_INSTANCE_HOSTNAME: naming-server
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka   
+
 
   email-service:
     image: email-service:latest
