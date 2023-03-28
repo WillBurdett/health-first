@@ -5,13 +5,13 @@ services:
     ports:
       - "8761:8761"
     healthcheck:
-      test: curl -f http://naming-server:8761
+      test: curl -f http://naming-server:8761/actuator/health
 
   config-server:
     image: config-server:latest
     restart: unless-stopped
     healthcheck:
-      test: curl -f http://config-server:8083/member-service/default
+      test: curl -f http://config-server:8083/actuator/health
     ports:
       - "8083:8083"
     depends_on:
@@ -74,7 +74,7 @@ services:
       - "3308:3306"
     restart: unless-stopped
     healthcheck:
-      test: curl -f http://memberdb:3306/members
+      test: curl -f http://memberdb:3306/actuator/health
     volumes:
       - data:/data
   
